@@ -1,0 +1,26 @@
+{
+  "name": "ha-zwave-card",
+  "version": "1.0.0",
+  "description": "Z-Wave network card for Home Assistant: every Z-Wave JS node, its status, security and protocol, its controller, under an animated banner.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juju35/ha-zwave-card.git"
+  },
+  "bugs": {
+    "url": "https://github.com/juju35/ha-zwave-card/issues"
+  },
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs && node --check dist/zwave-card.js",
+    "test": "node --test test/*.test.mjs",
+    "screenshots": "npm run build && node scripts/screenshots/stills.mjs && node scripts/screenshots/animations.mjs"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "acorn": "^8.19.0",
+    "css-tree": "^3.2.1",
+    "playwright": "^1.65.0"
+  }
+}
