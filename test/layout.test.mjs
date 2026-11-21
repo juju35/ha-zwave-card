@@ -218,3 +218,82 @@ test("node tiles: two per row from 400 px, every name whole (the tags on the sta
     assert.deepEqual(r.smallText, [], `text under 11 px: ${at}`);
   });
 });
+
+// A state change must not move the page: an update of an entity the card does not use changes nothing in its shadow
+// DOM, an update of one of its nodes patches that tile's text in place (no node replaced, the header untouched), and
+// the card's height never changes, frame after frame.
+test("state updates: nothing changes for other entities, one tile patched in place, a steady height", { timeout: 120000 }, async (t) => {
+  if (skip) return t.skip(skip);
+  const page = await browser.newPage({ viewport: { width: 1200, height: 900 } });
+  const errors = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  await page.clock.setFixedTime(new Date(NOW));
+  await page.setContent("<!doctype html><body style='margin:0;font-family:Roboto,Arial,sans-serif'></body>");
+  await page.addScriptTag({ content: HA_CARD });
+  await page.addScriptTag({ content: mock });
+  await page.addScriptTag({ content: src });
+  const variants = [
+    ["zwave-card", {}, 400],
+    ["zwave-card", { illustration: false }, 300],
+    ["zwave-mini-card", {}, 300],
+    ["zwave-mini-card", { illustration: false }, 245],
+  ];
+  const results = await page.evaluate(async (variants) => {
+    const frame = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+    const out = [];
+    for (const [type, config, width] of variants) {
+      const box = document.createElement("div");
+      box.style.width = `${width}px`;
+      document.body.appendChild(box);
+      const el = document.createElement(type);
+      el.setConfig(config);
+      let hass = window.mockHass();
+      el.hass = hass;
+      box.appendChild(el);
+      await new Promise((r) => setTimeout(r, 50));
+      await frame();
+      const heights = new Set();
+      let watching = true;
+      const tick = () => {
+        heights.add(Math.round(el.getBoundingClientRect().height * 10) / 10);
+        if (watching) requestAnimationFrame(tick);
+      };
+      tick();
+      const seen = { unrelated: [], relevant: [] };
+      let records = [];
+      const mo = new MutationObserver((ms) => records.push(...ms));
+      mo.observe(el.shadowRoot, { subtree: true, childList: true, attributes: true, characterData: true });
+      for (let k = 0; k < 20; k++) {
+        const relevant = k % 2 === 1;
+        const states = { ...hass.states };
+        if (relevant) states["sensor.kitchen_plug_power"] = { ...states["sensor.kitchen_plug_power"], state: String(30 + k) };
+        else states["sensor.elsewhere"] = { entity_id: "sensor.elsewhere", state: String(k), attributes: {} };
+        hass = { ...hass, states };
+        records = [];
+        el.hass = hass;
+        await frame();
+        seen[relevant ? "relevant" : "unrelated"].push({
+          count: records.length,
+          replaced: records.filter((m) => m.type === "childList").length,
+          header: records.filter((m) => (m.target.nodeType === 1 ? m.target : m.target.parentElement)?.closest(".banner, .header, .mhead")).length,
+        });
+      }
+      watching = false;
+      mo.disconnect();
+      box.remove();
+      out.push({ type, config, heights: [...heights], ...seen });
+    }
+    return out;
+  }, variants);
+  await page.close();
+  assert.deepEqual(errors, []);
+  for (const r of results) {
+    const at = `${r.type} ${JSON.stringify(r.config)}`;
+    assert.equal(r.heights.length, 1, `height changed (${r.heights.join(", ")}): ${at}`);
+    assert.ok(r.unrelated.every((u) => u.count === 0), `DOM changed on another entity's update: ${at}`);
+    assert.ok(r.relevant.every((u) => u.replaced === 0 && u.header === 0), `nodes replaced or header changed on a node's update: ${at}`);
+    // The full card shows the plug's power on its tile: its text (and label) is patched, nothing more.
+    if (r.type === "zwave-card") assert.ok(r.relevant.every((u) => u.count > 0 && u.count <= 2), `tile not patched in place: ${at} ${JSON.stringify(r.relevant)}`);
+    else assert.ok(r.relevant.every((u) => u.count === 0), `the compact mini card changed: ${at}`);
+  }
+});

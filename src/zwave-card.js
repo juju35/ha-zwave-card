@@ -2746,7 +2746,7 @@ class ZWaveCard extends HTMLElement {
     this._timer = setInterval(() => this._hass && this._config && (this.hass = this._hass), 60000);
     if (!this._fitObserver && typeof ResizeObserver === "function") this._fitObserver = new ResizeObserver(() => this._fitPill());
     this._fitObserver?.observe(this);
-    document.fonts?.ready?.then(() => this._fitPill());
+    document.fonts?.ready?.then(() => this._fitPill(true));
     this._update();
   }
 
@@ -2979,33 +2979,66 @@ class ZWaveCard extends HTMLElement {
   // alone) and the subtitle on one line. When the three lines do not fit in the banner above the ground strip, or
   // the label does not fit its line, the pill shows its dot alone (.dot-only): beside the title when the whole title
   // leaves it room, else under the subtitle.
-  _fitPill() {
+  // The result is kept with what it depends on (the header's width, the title, the pill's label, the buttons beside
+  // them) and drawn by the next renders: a state change that leaves the header as it was changes nothing in it, and
+  // the header is measured again only when one of these changes (or the fonts load, `force`).
+  _fitPill(force = false) {
+    this._fits ??= new Map();
     for (const t of this.shadowRoot?.querySelectorAll?.(".head .titles, .header .titles, .mhead") || []) {
       const row = t.matches(".mhead") ? t : t.querySelector(".trow");
       const chips = row ? [...row.querySelectorAll(":scope > .bst")] : [];
       if (!chips[0]?.getBoundingClientRect) continue;
-      t.classList.remove("below", "dot-only");
       const name = row.querySelector(".name, .title");
-      const gap = parseFloat(getComputedStyle(row).columnGap) || 0;
-      const outer = (c) => c.getBoundingClientRect().width + (parseFloat(getComputedStyle(c).marginLeft) || 0) + (parseFloat(getComputedStyle(c).marginRight) || 0);
-      const others = [...row.children].filter((c) => c !== name && !chips.includes(c) && c.getClientRects().length);
-      const room = row.getBoundingClientRect().width - others.reduce((w, c) => w + outer(c) + gap, 0);
-      const title = name && getComputedStyle(name).display !== "none" ? textWidth(name) + gap : 0;
-      const pills = () => chips.reduce((w, c) => w + c.getBoundingClientRect().width, gap * (chips.length - 1));
-      if (title + pills() <= room) continue;
-      t.classList.add("below");
-      const banner = t.closest(".banner") || t;
-      const ground = banner.querySelector(".strip");
-      const floor = ground ? ground.getBoundingClientRect().top : banner.getBoundingClientRect().bottom;
-      const box = t.getBoundingClientRect();
-      const whole = chips.every((c) => {
-        const tx = c.querySelector(".txt");
-        return !tx || tx.scrollWidth <= tx.clientWidth + 0.5;
-      });
-      if (whole && box.bottom <= floor + 0.5 && box.top >= banner.getBoundingClientRect().top - 0.5) continue;
-      t.classList.add("dot-only");
-      if (title + pills() <= room) t.classList.remove("below");
+      const kind = this._fitKind(t);
+      const shownName = name && getComputedStyle(name).display !== "none";
+      const key = [
+        Math.round(t.getBoundingClientRect().width * 10),
+        shownName ? name.textContent : "",
+        chips.map((c) => c.textContent).join("|"),
+        [...row.children].filter((c) => c !== name && !chips.includes(c)).length,
+      ].join("\n");
+      const prev = this._fits.get(kind);
+      const cls = !force && prev?.key === key ? prev.cls : this._measurePill(t, row, chips, name, shownName);
+      this._fits.set(kind, { key, cls });
+      // toggle() with a force leaves an attribute that is already right untouched (no mutation).
+      t.classList.toggle("below", cls.includes("below"));
+      t.classList.toggle("dot-only", cls.includes("dot-only"));
     }
+  }
+
+  // Which header a fitted pill belongs to: the banner's titles, the classic header's, or the compact mini card's row.
+  _fitKind(t) {
+    return t.matches(".mhead") ? "mini" : t.closest(".banner") ? "banner" : "header";
+  }
+
+  // The classes the header keeps from its last fit (none before it is first measured).
+  _fitCls(kind) {
+    const cls = this._fits?.get(kind)?.cls;
+    return cls ? ` ${cls}` : "";
+  }
+
+  // Measures the header from scratch and returns its classes ("", "below", "dot-only" or "below dot-only").
+  _measurePill(t, row, chips, name, shownName) {
+    t.classList.remove("below", "dot-only");
+    const gap = parseFloat(getComputedStyle(row).columnGap) || 0;
+    const outer = (c) => c.getBoundingClientRect().width + (parseFloat(getComputedStyle(c).marginLeft) || 0) + (parseFloat(getComputedStyle(c).marginRight) || 0);
+    const others = [...row.children].filter((c) => c !== name && !chips.includes(c) && c.getClientRects().length);
+    const room = row.getBoundingClientRect().width - others.reduce((w, c) => w + outer(c) + gap, 0);
+    const title = shownName ? textWidth(name) + gap : 0;
+    const pills = () => chips.reduce((w, c) => w + c.getBoundingClientRect().width, gap * (chips.length - 1));
+    if (title + pills() <= room) return "";
+    t.classList.add("below");
+    const banner = t.closest(".banner") || t;
+    const ground = banner.querySelector(".strip");
+    const floor = ground ? ground.getBoundingClientRect().top : banner.getBoundingClientRect().bottom;
+    const box = t.getBoundingClientRect();
+    const whole = chips.every((c) => {
+      const tx = c.querySelector(".txt");
+      return !tx || tx.scrollWidth <= tx.clientWidth + 0.5;
+    });
+    if (whole && box.bottom <= floor + 0.5 && box.top >= banner.getBoundingClientRect().top - 0.5) return "below";
+    t.classList.add("dot-only");
+    return title + pills() <= room ? "dot-only" : "below dot-only";
   }
 
   _badgeHtml() {
@@ -3022,7 +3055,7 @@ class ZWaveCard extends HTMLElement {
   _titleBlock() {
     const stats = this._statsText();
     return `${this._badgeHtml()}
-      <div class="titles">
+      <div class="titles${this._fitCls(this._config.illustration === false ? "header" : "banner")}">
         <div class="trow"><div class="name">${esc(this._config.title || this._t("title"))}</div>${this._pill()}</div>
         <div class="stats" title="${esc(stats.join(" · "))}">${stats.map((s) => `<span>${esc(s)}</span>`).join("")}</div>
       </div>`;
@@ -3347,7 +3380,7 @@ class ZWaveMiniCard extends ZWaveCard {
         <div class="mini s-${this._level()}">
           ${this._badgeHtml()}
           <div class="body">
-            <div class="mhead">
+            <div class="mhead${this._fitCls("mini")}">
               <span class="title">${title}</span>${this._pill()}
               ${this._zoomButton()}
             </div>
@@ -3360,7 +3393,7 @@ class ZWaveMiniCard extends ZWaveCard {
       <ha-card>
         <div class="mini">
           ${this._bannerOpen()}
-            <div class="head">${this._badgeHtml()}<div class="titles"><div class="trow"><div class="name">${title}</div>${this._pill()}</div></div></div>
+            <div class="head">${this._badgeHtml()}<div class="titles${this._fitCls("banner")}"><div class="trow"><div class="name">${title}</div>${this._pill()}</div></div></div>
             ${this._zoomButton(this._night() ? "on-night" : "")}
           </div>
           <div class="rs">${chips.join("")}</div>
