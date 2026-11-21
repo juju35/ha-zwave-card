@@ -530,3 +530,12 @@ test("a failed network status drops the last answer: the statuses come from the 
   assert.equal(el._summary.dead, 1);
   noData();
 });
+
+test("a disconnected driver turns the banner's scene to its disconnected look (red controller, grey links)", async () => {
+  const down = await withData(mockHass({ disconnected: true, healthy: true }));
+  assert.match(render(card(zc.ZWaveCard, {}, down)), /class="banner drv-off"/);
+  assert.match(render(card(zc.ZWaveMiniCard, {}, down)), /class="banner drv-off"/);
+  const up = await withData(mockHass({ healthy: true }));
+  assert.match(render(card(zc.ZWaveCard, {}, up)), /class="banner"/);
+  noData();
+});

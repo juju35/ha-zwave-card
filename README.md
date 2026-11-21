@@ -27,13 +27,13 @@ The cards are built on top of Home Assistant's [Z-Wave integration](https://www.
 ## Features
 
 - Two cards: a full **Z-Wave Card** and a compact **Z-Wave Mini Card**, of type `custom:zwave-card` and `custom:zwave-mini-card`
-- An animated 90 px banner, in the style of the other network cards: a house section with the Z-Wave controller at its centre linked to six devices (light, plug, thermometer, motion sensor, lock, blind), packets travelling along the links, on a blue network ground strip; a sleeping battery device dozes (its link dashed, a « z » floating up), and when a node is dead, a device and its link turn red and the device blinks
+- An animated 90 px banner, in the style of the other network cards: a house section with the Z-Wave controller at its centre linked to six devices (light, plug, thermometer, motion sensor, lock, blind), packets travelling along the links, on a blue network ground strip; a sleeping battery device dozes (its link dashed, a « z » floating up), when a node is dead, a device and its link turn red and the device blinks, and when the Z-Wave JS driver is disconnected the controller pulses red, its links turn grey and dashed and no packet travels
 - The Z-Wave badge takes the colour of the network's status: blue when healthy, amber for a low battery, red for a dead node or a disconnected driver, grey without any node
 - The banner's statistics: the Z-Wave JS version, the number of nodes and the RF region of the controller (« EU LR »)
 - Status chips under the banner: **8 / 9 alive**, **1 dead** (red), **2 asleep** (grey), **1 low battery** (amber), and the progress of a routes rebuild on the right (« Rebuilding routes · 44% »)
 - A **controller** tile: manufacturer and model, home ID, SDK version and RF region, with its node count; « Driver disconnected » in red when Z-Wave JS lost its controller; a click opens the Z-Wave JS page (administrators)
 - One 56 px tile per Z-Wave node, two per row: the icon of its main entity, its name, a state line and its tags — the **security class** (**S2 Access**, **S2 Auth**, **S2** in green, **S0** in amber) and **LR** (purple) for a Long Range node — with a status dot. The state line shows the main entity's state with one reading: the power of a plug, the signal (« −67 dBm »), or the battery; a sleeping node says « Asleep · 88% »
-- Healthy tiles stay neutral: only issues are coloured — a low battery in amber (« Battery 17% »), a dead node in red (« Dead · 3 h »); a sleeping node keeps a grey status dot
+- The tiles share the look of the other ha-* cards: a neutral background, the icon pastille and the state line in the node's state colour — green when healthy, grey asleep, amber for a low battery (« Battery 17% »), red when dead (« Dead · 3 h »)
 - Click a node for its detail, in a popup at the top of the card: node ID, status, manufacturer and product, firmware, protocol, security class, Z-Wave Plus version, signal, battery, last seen, and a button to the device page; it closes with its button, a click anywhere else, Escape, or when the card leaves the page
 - A **Rebuild routes** button (administrators): after a confirmation in a popup at the top of the card, it starts a routes rebuild on the controller (`zwave_js/begin_rebuilding_routes`); while a rebuild runs it becomes **Stop rebuilding** (`zwave_js/stop_rebuilding_routes`), and its progress shows on the right of the status chips
 - A **Z-Wave JS settings** button (administrators) opening the Z-Wave JS page, where devices are added
@@ -163,6 +163,12 @@ A dead node — its device and its link turn red, the device blinks:
 | Light | Dark |
 |---|---|
 | <img src="https://raw.githubusercontent.com/juju35/ha-zwave-card/main/screenshots/banner-dead.gif" alt="banner animation with a dead node" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-zwave-card/main/screenshots/banner-dead-dark.gif" alt="banner animation with a dead node, dark theme" width="400"> |
+
+The Z-Wave JS driver disconnected from its controller — the controller pulses red, its links turn grey and dashed, no packet travels:
+
+| Light | Dark |
+|---|---|
+| <img src="https://raw.githubusercontent.com/juju35/ha-zwave-card/main/screenshots/banner-disconnected.gif" alt="banner animation with the driver disconnected" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-zwave-card/main/screenshots/banner-disconnected-dark.gif" alt="banner animation with the driver disconnected, dark theme" width="400"> |
 
 ### Z-Wave Card
 

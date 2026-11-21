@@ -37,4 +37,6 @@ export const GIFS = [
   { name: "banner", tag: "zwave-card", width: 480, banner: true, config: {}, hass: { healthy: true } },
   // A dead node: its device and its link turn red, the device blinks.
   { name: "banner-dead", tag: "zwave-card", width: 480, banner: true, config: {} },
+  // The driver disconnected from its controller: the controller pulses red, its links grey and dashed, no packet.
+  { name: "banner-disconnected", tag: "zwave-card", width: 480, banner: true, config: {}, hass: { healthy: true, disconnected: true } },
 ];

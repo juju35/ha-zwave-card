@@ -2434,6 +2434,10 @@ ${PILL_STYLE}  .titles.below .trow { display: contents; }
   .scene .dev.sleep circle { stroke-dasharray: 2 2; } .scene .dev.sleep > path:not(.zz) { opacity: .5; }
   .scene .zz { fill: var(--line); transform-box: fill-box; animation: zw-doze 3s ease-in-out infinite; }
   .scene .hub { fill: var(--line); } .scene .hub-logo { fill: #ffffff; }
+  /* The driver disconnected from its controller: the controller pulses red, its links go grey and dashed, no packet. */
+  .drv-off .scene .hub { fill: var(--zw-alert); } .drv-off .scene .ping { stroke: var(--zw-alert); animation-duration: 1.5s; }
+  .drv-off .scene .links line { stroke: var(--zw-idle); stroke-dasharray: 2 3; } .drv-off .scene .pkt { display: none; }
+  .drv-off .scene .dev path { fill: var(--zw-idle); }
   .scene .ping { fill: none; stroke: var(--line); stroke-width: 1; transform-box: fill-box; transform-origin: center; animation: zw-ping 2s ease-out infinite; }
   /* ── Animations (each one a divisor of 6 s) ── */
   .scene .blink { animation: zw-blink 1.5s ease-in-out infinite; }
@@ -3011,7 +3015,7 @@ class ZWaveCard extends HTMLElement {
 
   _bannerOpen() {
     const night = this._night();
-    return `<div class="banner${night ? " night" : ""}">
+    return `<div class="banner${night ? " night" : ""}${this._disconnected() ? " drv-off" : ""}">
       ${sceneSvg(this._summary.dead > 0, this._summary.asleep > 0)}
       <div class="strip"></div>`;
   }
