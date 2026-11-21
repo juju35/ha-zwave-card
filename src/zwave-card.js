@@ -2141,6 +2141,9 @@ const refreshNetwork = (hass, controllers) => {
           s.failed = false;
         },
         () => {
+          // A failed answer (the integration unloaded, its server gone) drops the last one: its node statuses and
+          // its connected driver would else stay shown as they were; the statuses come from the entities meanwhile.
+          s.data = null;
           s.failed = true;
         },
       )
