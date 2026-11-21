@@ -2482,12 +2482,11 @@ const FULL_STYLE = `
   .tile.lvl-warn { --t: var(--zw-warn); } .tile.lvl-alert { --t: var(--zw-alert); }
   /* A sleeping node is healthy: its status dot is grey, the rest neutral. */
   .tile.lvl-ok.asleep { --t: var(--zw-idle); }
-  /* The tile stays neutral: an issue shows on its icon, its state line and its status dot only. */
+  /* The tile's background stays neutral: its state shows on its icon, its state line and its status dot. */
   .tile:hover { background: color-mix(in srgb, var(--t) 13%, var(--secondary-background-color, #f1f1f1)); }
   .tile:focus-visible { outline: 2px solid var(--primary-color, #03a9f4); outline-offset: 2px; }
   .ic { position: relative; flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
         color: var(--t); background: color-mix(in srgb, var(--t) 16%, transparent); }
-  .lvl-ok .ic { color: var(--primary-text-color); background: color-mix(in srgb, var(--zw-idle) 14%, transparent); }
   .ic .icon { width: 24px; height: 24px; }
   .ic ha-icon { --mdc-icon-size: 24px; }
   .sdot { position: absolute; right: -1px; bottom: -1px; width: 10px; height: 10px; border-radius: 50%; background: var(--t);
@@ -2495,7 +2494,7 @@ const FULL_STYLE = `
   .txt { flex: 1 1 auto; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
   /* The name has the tile's width (the security and protocol tags are on the line under it) and goes on to a second line rather than
      be cut; only a name longer than two lines ends with "…". */
-  .tname { font-size: 14px; font-weight: 500; line-height: 1.25; color: var(--primary-text-color); overflow: hidden; overflow-wrap: break-word;
+  .tname { font-size: 14px; font-weight: 600; line-height: 1.25; color: var(--primary-text-color); overflow: hidden; overflow-wrap: break-word;
            display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; }
   /* The state line, then the tags after it, or under it when they do not fit on the line. */
   .tsub { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 6px; min-width: 0; }
@@ -2504,7 +2503,9 @@ const FULL_STYLE = `
      long for its line ends with "…"); the name, a label, keeps its ellipsis. */
   .tstate { font-size: 12px; line-height: 1.25; color: var(--secondary-text-color); overflow: hidden; text-overflow: ellipsis;
             font-variant-numeric: tabular-nums; }
-  .tile:not(.lvl-ok) .tstate { color: var(--t); }
+  /* The ha-* tile look: the state line and the icon pastille in the tile's state colour (green OK, grey asleep, amber
+     low battery, red dead). */
+  .tile .tstate { color: var(--t); }
   /* Security tag (S2 green, S0 amber, none grey) and Long Range tag (purple). */
   .tag { flex: none; padding: 0 6px; border-radius: 10px; font-size: 11px; font-weight: 500; line-height: 15px; white-space: nowrap;
          background: color-mix(in srgb, var(--c) 15%, transparent); color: color-mix(in srgb, var(--c) 40%, var(--primary-text-color, #212121)); }
