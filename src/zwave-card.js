@@ -75,7 +75,6 @@ const STRINGS = {
     sdk: "SDK {v}",
     home_id: "Home ID {id}",
     long_range: "Long Range",
-    zwave_plus: "Z-Wave Plus v{v}",
     count_lr: "{n} LR",
     nodes_one: "{n} node",
     nodes_other: "{n} nodes",
@@ -99,7 +98,6 @@ const STRINGS = {
     security: "Security",
     sec_none: "Not secure",
     protocol: "Protocol",
-    region: "Region",
     manage: "Z-Wave JS settings",
     rebuild: "Rebuild routes",
     stop_rebuild: "Stop rebuilding",
@@ -156,7 +154,6 @@ const STRINGS = {
     sdk: "SDK {v}",
     home_id: "Home ID {id}",
     long_range: "Long Range",
-    zwave_plus: "Z-Wave Plus v{v}",
     count_lr: "{n} LR",
     nodes_one: "{n} nœud",
     nodes_other: "{n} nœuds",
@@ -180,7 +177,6 @@ const STRINGS = {
     security: "Sécurité",
     sec_none: "Non sécurisé",
     protocol: "Protocole",
-    region: "Région",
     manage: "Paramètres Z-Wave JS",
     rebuild: "Reconstruire les routes",
     stop_rebuild: "Arrêter la reconstruction",
@@ -237,7 +233,6 @@ const STRINGS = {
     sdk: "SDK {v}",
     home_id: "Home ID {id}",
     long_range: "Long Range",
-    zwave_plus: "Z-Wave Plus v{v}",
     count_lr: "{n} LR",
     nodes_one: "{n} Knoten",
     nodes_other: "{n} Knoten",
@@ -261,7 +256,6 @@ const STRINGS = {
     security: "Sicherheit",
     sec_none: "Nicht gesichert",
     protocol: "Protokoll",
-    region: "Region",
     manage: "Z-Wave-JS-Einstellungen",
     rebuild: "Routen neu aufbauen",
     stop_rebuild: "Neuaufbau stoppen",
@@ -318,7 +312,6 @@ const STRINGS = {
     sdk: "SDK {v}",
     home_id: "Home ID {id}",
     long_range: "Long Range",
-    zwave_plus: "Z-Wave Plus v{v}",
     count_lr: "{n} LR",
     nodes_one: "{n} nodo",
     nodes_other: "{n} nodos",
@@ -342,7 +335,6 @@ const STRINGS = {
     security: "Seguridad",
     sec_none: "No seguro",
     protocol: "Protocolo",
-    region: "Región",
     manage: "Ajustes de Z-Wave JS",
     rebuild: "Reconstruir rutas",
     stop_rebuild: "Detener la reconstrucción",
@@ -399,7 +391,6 @@ const STRINGS = {
     sdk: "SDK {v}",
     home_id: "Home ID {id}",
     long_range: "Long Range",
-    zwave_plus: "Z-Wave Plus v{v}",
     count_lr: "{n} LR",
     nodes_one: "{n} чвор",
     nodes_few: "{n} чвора",
@@ -423,7 +414,6 @@ const STRINGS = {
     security: "Безбедност",
     sec_none: "Незаштићено",
     protocol: "Протокол",
-    region: "Регион",
     manage: "Подешавања Z-Wave JS",
     rebuild: "Обнови руте",
     stop_rebuild: "Заустави обнову",
@@ -480,7 +470,6 @@ const STRINGS = {
     sdk: "SDK {v}",
     home_id: "Home ID {id}",
     long_range: "Long Range",
-    zwave_plus: "Z-Wave Plus v{v}",
     count_lr: "{n} LR",
     nodes_one: "{n} čvor",
     nodes_few: "{n} čvora",
@@ -504,7 +493,6 @@ const STRINGS = {
     security: "Bezbednost",
     sec_none: "Nezaštićeno",
     protocol: "Protokol",
-    region: "Region",
     manage: "Podešavanja Z-Wave JS",
     rebuild: "Obnovi rute",
     stop_rebuild: "Zaustavi obnovu",
@@ -561,7 +549,6 @@ const STRINGS = {
     sdk: "SDK {v}",
     home_id: "Home ID {id}",
     long_range: "Long Range",
-    zwave_plus: "Z-Wave Plus v{v}",
     count_lr: "{n} LR",
     nodes_one: "{n} nodo",
     nodes_other: "{n} nodi",
@@ -585,7 +572,6 @@ const STRINGS = {
     security: "Sicurezza",
     sec_none: "Non protetto",
     protocol: "Protocollo",
-    region: "Regione",
     manage: "Impostazioni Z-Wave JS",
     rebuild: "Ricostruisci percorsi",
     stop_rebuild: "Interrompi la ricostruzione",
@@ -642,7 +628,6 @@ const STRINGS = {
     sdk: "SDK {v}",
     home_id: "Home ID {id}",
     long_range: "Long Range",
-    zwave_plus: "Z-Wave Plus v{v}",
     count_lr: "{n} LR",
     nodes_one: "{n} node",
     nodes_other: "{n} nodes",
@@ -666,7 +651,6 @@ const STRINGS = {
     security: "Beveiliging",
     sec_none: "Niet beveiligd",
     protocol: "Protocol",
-    region: "Regio",
     manage: "Z-Wave JS-instellingen",
     rebuild: "Routes opnieuw opbouwen",
     stop_rebuild: "Opbouwen stoppen",
@@ -723,7 +707,6 @@ const STRINGS = {
     sdk: "SDK {v}",
     home_id: "Home ID {id}",
     long_range: "Long Range",
-    zwave_plus: "Z-Wave Plus v{v}",
     count_lr: "{n} LR",
     nodes_one: "{n} nó",
     nodes_other: "{n} nós",
@@ -747,7 +730,6 @@ const STRINGS = {
     security: "Segurança",
     sec_none: "Não seguro",
     protocol: "Protocolo",
-    region: "Região",
     manage: "Definições do Z-Wave JS",
     rebuild: "Reconstruir rotas",
     stop_rebuild: "Parar a reconstrução",
@@ -804,7 +786,6 @@ const STRINGS = {
     sdk: "SDK {v}",
     home_id: "Home ID {id}",
     long_range: "Long Range",
-    zwave_plus: "Z-Wave Plus v{v}",
     count_lr: "{n} LR",
     nodes_one: "{n} węzeł",
     nodes_few: "{n} węzły",
@@ -830,7 +811,6 @@ const STRINGS = {
     security: "Zabezpieczenia",
     sec_none: "Niezabezpieczone",
     protocol: "Protokół",
-    region: "Region",
     manage: "Ustawienia Z-Wave JS",
     rebuild: "Odbuduj trasy",
     stop_rebuild: "Zatrzymaj odbudowę",
@@ -887,7 +867,6 @@ const STRINGS = {
     sdk: "SDK {v}",
     home_id: "Home ID {id}",
     long_range: "Long Range",
-    zwave_plus: "Z-Wave Plus v{v}",
     count_lr: "{n} LR",
     nodes_one: "{n} nod",
     nodes_few: "{n} noduri",
@@ -912,7 +891,6 @@ const STRINGS = {
     security: "Securitate",
     sec_none: "Nesecurizat",
     protocol: "Protocol",
-    region: "Regiune",
     manage: "Setări Z-Wave JS",
     rebuild: "Reconstruiește rutele",
     stop_rebuild: "Oprește reconstruirea",
@@ -969,7 +947,6 @@ const STRINGS = {
     sdk: "SDK {v}",
     home_id: "Home ID {id}",
     long_range: "Long Range",
-    zwave_plus: "Z-Wave Plus v{v}",
     count_lr: "{n} LR",
     nodes_one: "{n} node",
     nodes_other: "{n} noder",
@@ -993,7 +970,6 @@ const STRINGS = {
     security: "Sikkerhed",
     sec_none: "Ikke sikret",
     protocol: "Protokol",
-    region: "Region",
     manage: "Z-Wave JS-indstillinger",
     rebuild: "Genopbyg ruter",
     stop_rebuild: "Stop genopbygning",
@@ -1050,7 +1026,6 @@ const STRINGS = {
     sdk: "SDK {v}",
     home_id: "Home ID {id}",
     long_range: "Long Range",
-    zwave_plus: "Z-Wave Plus v{v}",
     count_lr: "{n} LR",
     nodes_one: "{n} nod",
     nodes_other: "{n} noder",
@@ -1074,7 +1049,6 @@ const STRINGS = {
     security: "Säkerhet",
     sec_none: "Osäkrad",
     protocol: "Protokoll",
-    region: "Region",
     manage: "Z-Wave JS-inställningar",
     rebuild: "Bygg om rutter",
     stop_rebuild: "Stoppa ombyggnaden",
@@ -1131,7 +1105,6 @@ const STRINGS = {
     sdk: "SDK {v}",
     home_id: "Home ID {id}",
     long_range: "Long Range",
-    zwave_plus: "Z-Wave Plus v{v}",
     count_lr: "{n} LR",
     nodes_one: "{n} възел",
     nodes_other: "{n} възела",
@@ -1153,7 +1126,6 @@ const STRINGS = {
     security: "Сигурност",
     sec_none: "Незащитено",
     protocol: "Протокол",
-    region: "Регион",
     manage: "Настройки на Z-Wave JS",
     rebuild: "Възстанови маршрутите",
     stop_rebuild: "Спри възстановяването",
@@ -1210,7 +1182,6 @@ const STRINGS = {
     sdk: "SDK {v}",
     home_id: "Home ID {id}",
     long_range: "Long Range",
-    zwave_plus: "Z-Wave Plus v{v}",
     count_lr: "{n} LR",
     nodes_one: "{n} узел",
     nodes_few: "{n} узла",
@@ -1236,7 +1207,6 @@ const STRINGS = {
     security: "Безопасность",
     sec_none: "Без защиты",
     protocol: "Протокол",
-    region: "Регион",
     manage: "Настройки Z-Wave JS",
     rebuild: "Перестроить маршруты",
     stop_rebuild: "Остановить перестроение",
@@ -1293,7 +1263,6 @@ const STRINGS = {
     sdk: "SDK {v}",
     home_id: "Home ID {id}",
     long_range: "Long Range",
-    zwave_plus: "Z-Wave Plus v{v}",
     count_lr: "{n} LR",
     nodes_one: "{n} вузол",
     nodes_few: "{n} вузли",
@@ -1319,7 +1288,6 @@ const STRINGS = {
     security: "Безпека",
     sec_none: "Без захисту",
     protocol: "Протокол",
-    region: "Регіон",
     manage: "Налаштування Z-Wave JS",
     rebuild: "Перебудувати маршрути",
     stop_rebuild: "Зупинити перебудову",
@@ -1376,7 +1344,6 @@ const STRINGS = {
     sdk: "SDK {v}",
     home_id: "Home ID {id}",
     long_range: "Long Range",
-    zwave_plus: "Z-Wave Plus v{v}",
     count_lr: "{n} LR",
     nodes_one: "{n} csomópont",
     nodes_other: "{n} csomópont",
@@ -1400,7 +1367,6 @@ const STRINGS = {
     security: "Biztonság",
     sec_none: "Nem biztonságos",
     protocol: "Protokoll",
-    region: "Régió",
     manage: "Z-Wave JS beállítások",
     rebuild: "Útvonalak újraépítése",
     stop_rebuild: "Újraépítés leállítása",
@@ -1457,7 +1423,6 @@ const STRINGS = {
     sdk: "SDK {v}",
     home_id: "Home ID {id}",
     long_range: "Long Range",
-    zwave_plus: "Z-Wave Plus v{v}",
     count_lr: "{n} LR",
     nodes_one: "{n} uzol",
     nodes_few: "{n} uzly",
@@ -1483,7 +1448,6 @@ const STRINGS = {
     security: "Zabezpečenie",
     sec_none: "Nezabezpečené",
     protocol: "Protokol",
-    region: "Región",
     manage: "Nastavenia Z-Wave JS",
     rebuild: "Obnoviť trasy",
     stop_rebuild: "Zastaviť obnovu",
@@ -1540,7 +1504,6 @@ const STRINGS = {
     sdk: "SDK {v}",
     home_id: "Home ID {id}",
     long_range: "Long Range",
-    zwave_plus: "Z-Wave Plus v{v}",
     count_lr: "{n} LR",
     nodes_one: "{n} uzel",
     nodes_few: "{n} uzly",
@@ -1566,7 +1529,6 @@ const STRINGS = {
     security: "Zabezpečení",
     sec_none: "Nezabezpečeno",
     protocol: "Protokol",
-    region: "Region",
     manage: "Nastavení Z-Wave JS",
     rebuild: "Obnovit trasy",
     stop_rebuild: "Zastavit obnovu",
@@ -1623,7 +1585,6 @@ const STRINGS = {
     sdk: "SDK {v}",
     home_id: "Home ID {id}",
     long_range: "Long Range",
-    zwave_plus: "Z-Wave Plus v{v}",
     count_lr: "{n} LR",
     nodes_one: "{n} vozlišče",
     nodes_two: "{n} vozlišči",
@@ -1649,7 +1610,6 @@ const STRINGS = {
     security: "Varnost",
     sec_none: "Ni zaščiteno",
     protocol: "Protokol",
-    region: "Regija",
     manage: "Nastavitve Z-Wave JS",
     rebuild: "Obnovi poti",
     stop_rebuild: "Ustavi obnovo",
@@ -1706,7 +1666,6 @@ const STRINGS = {
     sdk: "SDK {v}",
     home_id: "Home ID {id}",
     long_range: "Long Range",
-    zwave_plus: "Z-Wave Plus v{v}",
     count_lr: "{n} LR",
     nodes_zero: "{n} mezglu",
     nodes_one: "{n} mezgls",
@@ -1730,7 +1689,6 @@ const STRINGS = {
     security: "Drošība",
     sec_none: "Nav aizsargāts",
     protocol: "Protokols",
-    region: "Reģions",
     manage: "Z-Wave JS iestatījumi",
     rebuild: "Atjaunot maršrutus",
     stop_rebuild: "Apturēt atjaunošanu",
@@ -1787,7 +1745,6 @@ const STRINGS = {
     sdk: "SDK {v}",
     home_id: "Home ID {id}",
     long_range: "Long Range",
-    zwave_plus: "Z-Wave Plus v{v}",
     count_lr: "{n} LR",
     nodes_one: "{n} κόμβος",
     nodes_other: "{n} κόμβοι",
@@ -1811,7 +1768,6 @@ const STRINGS = {
     security: "Ασφάλεια",
     sec_none: "Μη ασφαλές",
     protocol: "Πρωτόκολλο",
-    region: "Περιοχή",
     manage: "Ρυθμίσεις Z-Wave JS",
     rebuild: "Ανακατασκευή διαδρομών",
     stop_rebuild: "Διακοπή ανακατασκευής",
@@ -2185,6 +2141,9 @@ const refreshNetwork = (hass, controllers) => {
           s.failed = false;
         },
         () => {
+          // A failed answer (the integration unloaded, its server gone) drops the last one: its node statuses and
+          // its connected driver would else stay shown as they were; the statuses come from the entities meanwhile.
+          s.data = null;
           s.failed = true;
         },
       )
@@ -2475,6 +2434,10 @@ ${PILL_STYLE}  .titles.below .trow { display: contents; }
   .scene .dev.sleep circle { stroke-dasharray: 2 2; } .scene .dev.sleep > path:not(.zz) { opacity: .5; }
   .scene .zz { fill: var(--line); transform-box: fill-box; animation: zw-doze 3s ease-in-out infinite; }
   .scene .hub { fill: var(--line); } .scene .hub-logo { fill: #ffffff; }
+  /* The driver disconnected from its controller: the controller pulses red, its links go grey and dashed, no packet. */
+  .drv-off .scene .hub { fill: var(--zw-alert); } .drv-off .scene .ping { stroke: var(--zw-alert); animation-duration: 1.5s; }
+  .drv-off .scene .links line { stroke: var(--zw-idle); stroke-dasharray: 2 3; } .drv-off .scene .pkt { display: none; }
+  .drv-off .scene .dev path { fill: var(--zw-idle); }
   .scene .ping { fill: none; stroke: var(--line); stroke-width: 1; transform-box: fill-box; transform-origin: center; animation: zw-ping 2s ease-out infinite; }
   /* ── Animations (each one a divisor of 6 s) ── */
   .scene .blink { animation: zw-blink 1.5s ease-in-out infinite; }
@@ -2510,7 +2473,7 @@ const FULL_STYLE = `
   /* ── Status chips, the routes rebuild on the right ── */
   .status { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 8px; padding: 10px 12px 0; min-width: 0; }
   .aside { margin-left: auto; min-width: 0; max-width: 100%; font-size: 12px; line-height: 16px; color: var(--secondary-text-color);
-             white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+             white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
 
   /* ── Controller and nodes: 56 px tiles, the size of Home Assistant's Tile card ── */
   .content { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 8px; }
@@ -2523,12 +2486,11 @@ const FULL_STYLE = `
   .tile.lvl-warn { --t: var(--zw-warn); } .tile.lvl-alert { --t: var(--zw-alert); }
   /* A sleeping node is healthy: its status dot is grey, the rest neutral. */
   .tile.lvl-ok.asleep { --t: var(--zw-idle); }
-  /* The tile stays neutral: an issue shows on its icon, its state line and its status dot only. */
+  /* The tile's background stays neutral: its state shows on its icon, its state line and its status dot. */
   .tile:hover { background: color-mix(in srgb, var(--t) 13%, var(--secondary-background-color, #f1f1f1)); }
   .tile:focus-visible { outline: 2px solid var(--primary-color, #03a9f4); outline-offset: 2px; }
   .ic { position: relative; flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
         color: var(--t); background: color-mix(in srgb, var(--t) 16%, transparent); }
-  .lvl-ok .ic { color: var(--primary-text-color); background: color-mix(in srgb, var(--zw-idle) 14%, transparent); }
   .ic .icon { width: 24px; height: 24px; }
   .ic ha-icon { --mdc-icon-size: 24px; }
   .sdot { position: absolute; right: -1px; bottom: -1px; width: 10px; height: 10px; border-radius: 50%; background: var(--t);
@@ -2536,15 +2498,18 @@ const FULL_STYLE = `
   .txt { flex: 1 1 auto; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
   /* The name has the tile's width (the security and protocol tags are on the line under it) and goes on to a second line rather than
      be cut; only a name longer than two lines ends with "…". */
-  .tname { font-size: 14px; font-weight: 500; line-height: 1.25; color: var(--primary-text-color); overflow: hidden; overflow-wrap: break-word;
+  .tname { font-size: 14px; font-weight: 600; line-height: 1.25; color: var(--primary-text-color); overflow: hidden; overflow-wrap: break-word;
            display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; }
   /* The state line, then the tags after it, or under it when they do not fit on the line. */
   .tsub { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 6px; min-width: 0; }
   .tsub > .tstate { flex: 0 1 auto; min-width: 0; }
   /* A reading is never cut short: on a narrow tile it goes on to a second line, between its words only (a word too
      long for its line ends with "…"); the name, a label, keeps its ellipsis. */
-  .tstate { font-size: 12px; line-height: 1.25; color: var(--secondary-text-color); overflow: hidden; text-overflow: ellipsis; }
-  .tile:not(.lvl-ok) .tstate { color: var(--t); }
+  .tstate { font-size: 12px; line-height: 1.25; color: var(--secondary-text-color); overflow: hidden; text-overflow: ellipsis;
+            font-variant-numeric: tabular-nums; }
+  /* The ha-* tile look: the state line and the icon pastille in the tile's state colour (green OK, grey asleep, amber
+     low battery, red dead). */
+  .tile .tstate { color: var(--t); }
   /* Security tag (S2 green, S0 amber, none grey) and Long Range tag (purple). */
   .tag { flex: none; padding: 0 6px; border-radius: 10px; font-size: 11px; font-weight: 500; line-height: 15px; white-space: nowrap;
          background: color-mix(in srgb, var(--c) 15%, transparent); color: color-mix(in srgb, var(--c) 40%, var(--primary-text-color, #212121)); }
@@ -2746,7 +2711,7 @@ class ZWaveCard extends HTMLElement {
     this._timer = setInterval(() => this._hass && this._config && (this.hass = this._hass), 60000);
     if (!this._fitObserver && typeof ResizeObserver === "function") this._fitObserver = new ResizeObserver(() => this._fitPill());
     this._fitObserver?.observe(this);
-    document.fonts?.ready?.then(() => this._fitPill());
+    document.fonts?.ready?.then(() => this._fitPill(true));
     this._update();
   }
 
@@ -2979,33 +2944,69 @@ class ZWaveCard extends HTMLElement {
   // alone) and the subtitle on one line. When the three lines do not fit in the banner above the ground strip, or
   // the label does not fit its line, the pill shows its dot alone (.dot-only): beside the title when the whole title
   // leaves it room, else under the subtitle.
-  _fitPill() {
+  // The result is kept with what it depends on (the header's width, the title, the pill's label, the buttons beside
+  // them) and drawn by the next renders: a state change that leaves the header as it was changes nothing in it, and
+  // the header is measured again only when one of these changes (or the fonts load, `force`).
+  _fitPill(force = false) {
+    this._fits ??= new Map();
     for (const t of this.shadowRoot?.querySelectorAll?.(".head .titles, .header .titles, .mhead") || []) {
       const row = t.matches(".mhead") ? t : t.querySelector(".trow");
       const chips = row ? [...row.querySelectorAll(":scope > .bst")] : [];
       if (!chips[0]?.getBoundingClientRect) continue;
-      t.classList.remove("below", "dot-only");
       const name = row.querySelector(".name, .title");
-      const gap = parseFloat(getComputedStyle(row).columnGap) || 0;
-      const outer = (c) => c.getBoundingClientRect().width + (parseFloat(getComputedStyle(c).marginLeft) || 0) + (parseFloat(getComputedStyle(c).marginRight) || 0);
-      const others = [...row.children].filter((c) => c !== name && !chips.includes(c) && c.getClientRects().length);
-      const room = row.getBoundingClientRect().width - others.reduce((w, c) => w + outer(c) + gap, 0);
-      const title = name && getComputedStyle(name).display !== "none" ? textWidth(name) + gap : 0;
-      const pills = () => chips.reduce((w, c) => w + c.getBoundingClientRect().width, gap * (chips.length - 1));
-      if (title + pills() <= room) continue;
-      t.classList.add("below");
-      const banner = t.closest(".banner") || t;
-      const ground = banner.querySelector(".strip");
-      const floor = ground ? ground.getBoundingClientRect().top : banner.getBoundingClientRect().bottom;
-      const box = t.getBoundingClientRect();
-      const whole = chips.every((c) => {
-        const tx = c.querySelector(".txt");
-        return !tx || tx.scrollWidth <= tx.clientWidth + 0.5;
-      });
-      if (whole && box.bottom <= floor + 0.5 && box.top >= banner.getBoundingClientRect().top - 0.5) continue;
-      t.classList.add("dot-only");
-      if (title + pills() <= room) t.classList.remove("below");
+      const kind = this._fitKind(t);
+      const shownName = name && getComputedStyle(name).display !== "none";
+      const key = [
+        Math.round(t.getBoundingClientRect().width * 10),
+        shownName ? name.textContent : "",
+        chips.map((c) => c.textContent).join("|"),
+        [...row.children].filter((c) => c !== name && !chips.includes(c)).length,
+      ].join("\n");
+      const prev = this._fits.get(kind);
+      const cls = !force && prev?.key === key ? prev.cls : this._measurePill(t, row, chips, name, shownName);
+      this._fits.set(kind, { key, cls });
+      // toggle() with a force leaves an attribute that is already right untouched (no mutation).
+      t.classList.toggle("below", cls.includes("below"));
+      t.classList.toggle("dot-only", cls.includes("dot-only"));
     }
+  }
+
+  // Which header a fitted pill belongs to: the banner's titles, the classic header's, or the compact mini card's row.
+  _fitKind(t) {
+    return t.matches(".mhead") ? "mini" : t.closest(".banner") ? "banner" : "header";
+  }
+
+  // The classes the header keeps from its last fit (none before it is first measured).
+  _fitCls(kind) {
+    const cls = this._fits?.get(kind)?.cls;
+    return cls ? ` ${cls}` : "";
+  }
+
+  // Measures the header from scratch and returns its classes ("", "below", "dot-only" or "below dot-only").
+  _measurePill(t, row, chips, name, shownName) {
+    t.classList.remove("below", "dot-only");
+    const gap = parseFloat(getComputedStyle(row).columnGap) || 0;
+    // A positive margin beside the title is the detail button's auto margin (pushed to the right): free room, not
+    // width taken; its negative margins do count.
+    const margin = (v) => Math.min(parseFloat(v) || 0, 0);
+    const outer = (c) => c.getBoundingClientRect().width + margin(getComputedStyle(c).marginLeft) + margin(getComputedStyle(c).marginRight);
+    const others = [...row.children].filter((c) => c !== name && !chips.includes(c) && c.getClientRects().length);
+    const room = row.getBoundingClientRect().width - others.reduce((w, c) => w + outer(c) + gap, 0);
+    const title = shownName ? textWidth(name) + gap : 0;
+    const pills = () => chips.reduce((w, c) => w + c.getBoundingClientRect().width, gap * (chips.length - 1));
+    if (title + pills() <= room) return "";
+    t.classList.add("below");
+    const banner = t.closest(".banner") || t;
+    const ground = banner.querySelector(".strip");
+    const floor = ground ? ground.getBoundingClientRect().top : banner.getBoundingClientRect().bottom;
+    const box = t.getBoundingClientRect();
+    const whole = chips.every((c) => {
+      const tx = c.querySelector(".txt");
+      return !tx || tx.scrollWidth <= tx.clientWidth + 0.5;
+    });
+    if (whole && box.bottom <= floor + 0.5 && box.top >= banner.getBoundingClientRect().top - 0.5) return "below";
+    t.classList.add("dot-only");
+    return title + pills() <= room ? "dot-only" : "below dot-only";
   }
 
   _badgeHtml() {
@@ -3014,7 +3015,7 @@ class ZWaveCard extends HTMLElement {
 
   _bannerOpen() {
     const night = this._night();
-    return `<div class="banner${night ? " night" : ""}">
+    return `<div class="banner${night ? " night" : ""}${this._disconnected() ? " drv-off" : ""}">
       ${sceneSvg(this._summary.dead > 0, this._summary.asleep > 0)}
       <div class="strip"></div>`;
   }
@@ -3022,7 +3023,7 @@ class ZWaveCard extends HTMLElement {
   _titleBlock() {
     const stats = this._statsText();
     return `${this._badgeHtml()}
-      <div class="titles">
+      <div class="titles${this._fitCls(this._config.illustration === false ? "header" : "banner")}">
         <div class="trow"><div class="name">${esc(this._config.title || this._t("title"))}</div>${this._pill()}</div>
         <div class="stats" title="${esc(stats.join(" · "))}">${stats.map((s) => `<span>${esc(s)}</span>`).join("")}</div>
       </div>`;
@@ -3347,7 +3348,7 @@ class ZWaveMiniCard extends ZWaveCard {
         <div class="mini s-${this._level()}">
           ${this._badgeHtml()}
           <div class="body">
-            <div class="mhead">
+            <div class="mhead${this._fitCls("mini")}">
               <span class="title">${title}</span>${this._pill()}
               ${this._zoomButton()}
             </div>
@@ -3360,7 +3361,7 @@ class ZWaveMiniCard extends ZWaveCard {
       <ha-card>
         <div class="mini">
           ${this._bannerOpen()}
-            <div class="head">${this._badgeHtml()}<div class="titles"><div class="trow"><div class="name">${title}</div>${this._pill()}</div></div></div>
+            <div class="head">${this._badgeHtml()}<div class="titles${this._fitCls("banner")}"><div class="trow"><div class="name">${title}</div>${this._pill()}</div></div></div>
             ${this._zoomButton(this._night() ? "on-night" : "")}
           </div>
           <div class="rs">${chips.join("")}</div>

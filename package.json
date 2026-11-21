@@ -1,6 +1,6 @@
 {
   "name": "ha-zwave-card",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Z-Wave network card for Home Assistant: every Z-Wave JS node, its status, security and protocol, its controller, under an animated banner.",
   "repository": {
     "type": "git",

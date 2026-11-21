@@ -512,3 +512,30 @@ test("no rebuild button for a non-admin, with a disconnected driver, or with sho
   assert.doesNotMatch(render(card(zc.ZWaveCard, { show_rebuild: false }, hass)), /data-action="rebuild"/);
   assert.match(render(card(zc.ZWaveCard, { show_manage: false }, hass)), /data-action="rebuild"/);
 });
+
+test("a failed network status drops the last answer: the statuses come from the entities again", async () => {
+  const hass = await withData();
+  assert.ok(zc.networkNodes().nodes.size > 0);
+  const s = [...zc.store.net.values()][0];
+  s.at = 0;
+  const failing = { ...hass, callWS: () => Promise.reject({ code: "not_loaded" }) };
+  zc.refreshNetwork(failing, zc.zwaveDevices(failing).controllers);
+  for (let i = 0; i < 10; i++) await settle();
+  assert.equal(s.data, null);
+  assert.equal(s.failed, true);
+  assert.equal(zc.networkNodes().nodes.size, 0);
+  // Without the answer, the node status sensors still tell the dead node.
+  const el = card(zc.ZWaveCard, {}, failing);
+  el._collect();
+  assert.equal(el._summary.dead, 1);
+  noData();
+});
+
+test("a disconnected driver turns the banner's scene to its disconnected look (red controller, grey links)", async () => {
+  const down = await withData(mockHass({ disconnected: true, healthy: true }));
+  assert.match(render(card(zc.ZWaveCard, {}, down)), /class="banner drv-off"/);
+  assert.match(render(card(zc.ZWaveMiniCard, {}, down)), /class="banner drv-off"/);
+  const up = await withData(mockHass({ healthy: true }));
+  assert.match(render(card(zc.ZWaveCard, {}, up)), /class="banner"/);
+  noData();
+});
