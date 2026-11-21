@@ -190,6 +190,18 @@ Confirmation of a routes rebuild, at the top of the card:
 |---|---|
 | <img src="https://raw.githubusercontent.com/juju35/ha-zwave-card/main/screenshots/card-rebuild.png" alt="routes rebuild confirmation" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-zwave-card/main/screenshots/card-rebuild-dark.png" alt="routes rebuild confirmation, dark theme" width="400"> |
 
+A routes rebuild in progress (its progress on the right of the status chips, **Stop rebuilding**):
+
+| Light | Dark |
+|---|---|
+| <img src="https://raw.githubusercontent.com/juju35/ha-zwave-card/main/screenshots/card-rebuilding.png" alt="routes rebuild in progress" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-zwave-card/main/screenshots/card-rebuilding-dark.png" alt="routes rebuild in progress, dark theme" width="400"> |
+
+The Z-Wave JS driver disconnected from its controller:
+
+| Light | Dark |
+|---|---|
+| <img src="https://raw.githubusercontent.com/juju35/ha-zwave-card/main/screenshots/card-disconnected.png" alt="driver disconnected" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-zwave-card/main/screenshots/card-disconnected-dark.png" alt="driver disconnected, dark theme" width="400"> |
+
 Classic header (`illustration: false`, here with `sort: status`):
 
 | Light | Dark |
@@ -202,6 +214,12 @@ Classic header (`illustration: false`, here with `sort: status`):
 |---|---|
 | <img src="https://raw.githubusercontent.com/juju35/ha-zwave-card/main/screenshots/mini-card.png" alt="mini card with issues" width="380"> | <img src="https://raw.githubusercontent.com/juju35/ha-zwave-card/main/screenshots/mini-card-dark.png" alt="mini card with issues, dark theme" width="380"> |
 | <img src="https://raw.githubusercontent.com/juju35/ha-zwave-card/main/screenshots/mini-card-healthy.png" alt="healthy mini card" width="380"> | <img src="https://raw.githubusercontent.com/juju35/ha-zwave-card/main/screenshots/mini-card-healthy-dark.png" alt="healthy mini card, dark theme" width="380"> |
+
+Classic header (`illustration: false`):
+
+| Light | Dark |
+|---|---|
+| <img src="https://raw.githubusercontent.com/juju35/ha-zwave-card/main/screenshots/mini-card-classic.png" alt="mini card, classic header" width="380"> | <img src="https://raw.githubusercontent.com/juju35/ha-zwave-card/main/screenshots/mini-card-classic-dark.png" alt="mini card, classic header, dark theme" width="380"> |
 
 Unfolded with its detail button (top right; click it again or anywhere outside the card to go back):
 

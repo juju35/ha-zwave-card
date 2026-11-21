@@ -17,11 +17,16 @@ export const SHOTS = [
   ...pair("card-detail", { tag: "zwave-card", config: {}, clicks: ['.tile[data-node="dev_lock"]'] }),
   // The confirmation of a routes rebuild, at the top of the card.
   ...pair("card-rebuild", { tag: "zwave-card", config: {}, clicks: ['.btn[data-action="rebuild"]'] }),
+  // A routes rebuild in progress (its progress on the right of the status chips, the Stop rebuilding button), and the
+  // driver disconnected from its controller.
+  ...pair("card-rebuilding", { tag: "zwave-card", config: {}, hass: { healthy: true, rebuilding: true } }),
+  ...pair("card-disconnected", { tag: "zwave-card", config: {}, hass: { healthy: true, disconnected: true } }),
   // Without the illustration, issues first.
   ...pair("card-classic", { tag: "zwave-card", config: { illustration: false, sort: "status" } }),
   // The mini card, with issues and healthy, and the same card unfolded by its detail button.
   ...pair("mini-card", { tag: "zwave-mini-card", config: {}, width: MINI }),
   ...pair("mini-card-healthy", { tag: "zwave-mini-card", config: {}, hass: { healthy: true }, width: MINI }),
+  ...pair("mini-card-classic", { tag: "zwave-mini-card", config: { illustration: false }, width: MINI }),
   ...pair("mini-card-zoom", { tag: "zwave-mini-card", config: {}, clicks: [".zoom"] }),
 ];
 
