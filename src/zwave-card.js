@@ -2466,7 +2466,7 @@ const FULL_STYLE = `
   /* ── Status chips, the routes rebuild on the right ── */
   .status { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 8px; padding: 10px 12px 0; min-width: 0; }
   .aside { margin-left: auto; min-width: 0; max-width: 100%; font-size: 12px; line-height: 16px; color: var(--secondary-text-color);
-             white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+             white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
 
   /* ── Controller and nodes: 56 px tiles, the size of Home Assistant's Tile card ── */
   .content { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 8px; }
@@ -2499,7 +2499,8 @@ const FULL_STYLE = `
   .tsub > .tstate { flex: 0 1 auto; min-width: 0; }
   /* A reading is never cut short: on a narrow tile it goes on to a second line, between its words only (a word too
      long for its line ends with "…"); the name, a label, keeps its ellipsis. */
-  .tstate { font-size: 12px; line-height: 1.25; color: var(--secondary-text-color); overflow: hidden; text-overflow: ellipsis; }
+  .tstate { font-size: 12px; line-height: 1.25; color: var(--secondary-text-color); overflow: hidden; text-overflow: ellipsis;
+            font-variant-numeric: tabular-nums; }
   .tile:not(.lvl-ok) .tstate { color: var(--t); }
   /* Security tag (S2 green, S0 amber, none grey) and Long Range tag (purple). */
   .tag { flex: none; padding: 0 6px; border-radius: 10px; font-size: 11px; font-weight: 500; line-height: 15px; white-space: nowrap;
