@@ -297,3 +297,12 @@ test("state updates: nothing changes for other entities, one tile patched in pla
     else assert.ok(r.relevant.every((u) => u.count === 0), `the compact mini card changed: ${at}`);
   }
 });
+
+// The compact mini card's detail button is pushed to the right by an auto margin: that margin is free room, so a short
+// title keeps its pill beside it.
+test("compact mini card: the pill stays beside a short title, left of the detail button", { timeout: 60000 }, async (t) => {
+  if (skip) return t.skip(skip);
+  const cases = ["light", "dark"].map((theme) => ({ type: "zwave-mini-card", config: { illustration: false }, lang: "en", theme, width: 400 }));
+  const results = await measure(cases);
+  for (const r of results) assert.ok(r.pill?.beside && !r.pill.dot, `pill not beside the title: ${JSON.stringify(r.pill)}`);
+});

@@ -2978,7 +2978,10 @@ class ZWaveCard extends HTMLElement {
   _measurePill(t, row, chips, name, shownName) {
     t.classList.remove("below", "dot-only");
     const gap = parseFloat(getComputedStyle(row).columnGap) || 0;
-    const outer = (c) => c.getBoundingClientRect().width + (parseFloat(getComputedStyle(c).marginLeft) || 0) + (parseFloat(getComputedStyle(c).marginRight) || 0);
+    // A positive margin beside the title is the detail button's auto margin (pushed to the right): free room, not
+    // width taken; its negative margins do count.
+    const margin = (v) => Math.min(parseFloat(v) || 0, 0);
+    const outer = (c) => c.getBoundingClientRect().width + margin(getComputedStyle(c).marginLeft) + margin(getComputedStyle(c).marginRight);
     const others = [...row.children].filter((c) => c !== name && !chips.includes(c) && c.getClientRects().length);
     const room = row.getBoundingClientRect().width - others.reduce((w, c) => w + outer(c) + gap, 0);
     const title = shownName ? textWidth(name) + gap : 0;
