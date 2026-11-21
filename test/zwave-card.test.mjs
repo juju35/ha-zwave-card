@@ -445,3 +445,70 @@ test("show_title / show_subtitle: hide the header's title and its stats line, th
   assert.match(html, /:host\(\[hide-subtitle\]\) \.titles > \.stats/);
   for (const l of Object.keys(zc.STRINGS)) for (const k of ["show_title", "show_subtitle"]) assert.ok(zc.STRINGS[l][k], `${l}.${k}`);
 });
+
+test("the rebuild button asks for a confirmation, then starts the routes rebuild on the controller's config entry", async () => {
+  const asked = [];
+  const base = mockHass();
+  const hass = {
+    ...base,
+    callWS: (m) => {
+      asked.push({ ...m });
+      return base.callWS(m);
+    },
+  };
+  await withData(hass);
+  const el = card(zc.ZWaveCard, {}, hass);
+  el._update = () => {};
+  let html = render(el);
+  assert.match(text(html), /Rebuild routes Z-Wave JS settings/);
+  el._click({ composedPath: () => [{ dataset: { action: "rebuild" } }], detail: 1 });
+  html = el._render();
+  assert.match(html, /role="alertdialog"/);
+  assert.match(text(html), /Rebuild the network routes\? Every node gets new routes to the controller/);
+  // Cancel: nothing asked.
+  el._click({ composedPath: () => [{ dataset: { action: "close" } }], detail: 1 });
+  assert.equal(el._detail, null);
+  assert.ok(!asked.some((m) => m.type === "zwave_js/begin_rebuilding_routes"));
+  // Confirm.
+  el._click({ composedPath: () => [{ dataset: { action: "rebuild" } }], detail: 1 });
+  el._click({ composedPath: () => [{ dataset: { action: "confirm" } }], detail: 1 });
+  for (let i = 0; i < 10; i++) await settle();
+  assert.deepEqual(asked.find((m) => m.type === "zwave_js/begin_rebuilding_routes"), { type: "zwave_js/begin_rebuilding_routes", entry_id: "zwave_entry" });
+  assert.equal(el._detail, null);
+  // The rebuild runs: the button stops it, after its own confirmation.
+  html = render(el);
+  assert.match(text(html), /Rebuilding routes · 44%/);
+  assert.match(text(html), /Stop rebuilding/);
+  el._click({ composedPath: () => [{ dataset: { action: "rebuild" } }], detail: 1 });
+  assert.match(text(el._render()), /Stop rebuilding the routes\? The routes already rebuilt are kept\. Cancel Stop/);
+  el._click({ composedPath: () => [{ dataset: { action: "confirm" } }], detail: 1 });
+  for (let i = 0; i < 10; i++) await settle();
+  assert.ok(asked.some((m) => m.type === "zwave_js/stop_rebuilding_routes" && m.entry_id === "zwave_entry"));
+  assert.match(text(render(el)), /Rebuild routes/);
+});
+
+test("a failed rebuild command is said in the popup; Escape closes it", async () => {
+  const base = await withData();
+  const hass = {
+    ...base,
+    callWS: (m) => (m.type === "zwave_js/begin_rebuilding_routes" ? Promise.reject({ code: "unknown_error" }) : base.callWS(m)),
+  };
+  const el = card(zc.ZWaveCard, {}, hass);
+  el._collect();
+  el._click({ composedPath: () => [{ dataset: { action: "rebuild" } }], detail: 1 });
+  el._click({ composedPath: () => [{ dataset: { action: "confirm" } }], detail: 1 });
+  for (let i = 0; i < 10; i++) await settle();
+  assert.equal(el._detail, "@rebuild");
+  assert.match(text(el._render()), /The command failed\. Try again\./);
+  el._onKey({ key: "Escape", stopPropagation() {} });
+  assert.equal(el._detail, null);
+});
+
+test("no rebuild button for a non-admin, with a disconnected driver, or with show_rebuild: false", async () => {
+  noData();
+  assert.doesNotMatch(render(card(zc.ZWaveCard, {}, mockHass({ admin: false }))), /data-action="rebuild"/);
+  assert.doesNotMatch(render(card(zc.ZWaveCard, {}, await withData(mockHass({ disconnected: true })))), /data-action="rebuild"/);
+  const hass = await withData();
+  assert.doesNotMatch(render(card(zc.ZWaveCard, { show_rebuild: false }, hass)), /data-action="rebuild"/);
+  assert.match(render(card(zc.ZWaveCard, { show_manage: false }, hass)), /data-action="rebuild"/);
+});

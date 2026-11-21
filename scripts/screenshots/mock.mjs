@@ -106,14 +106,15 @@ export const mockHass = ({ dark = false, healthy = false, admin = true, rebuildi
   }
   // A device of another integration, left out of the cards.
   devices.dev_other = { id: "dev_other", name: "Router", identifiers: [["zha", "00:11"]], config_entries: ["zha"], via_device_id: null };
-  const NETWORK = {
+  let busy = rebuilding;
+  const network = () => ({
     client: { ws_server_url: "ws://localhost:3000", state: disconnected ? "disconnected" : "connected", driver_version: "15.2.1", server_version: "3.1.0" },
     controller: {
-      home_id: HOME, own_node_id: 1, sdk_version: "7.22.1", firmware_version: "7.22.1", rf_region: 11, is_rebuilding_routes: rebuilding,
-      rebuild_routes_progress: rebuilding ? { 2: "done", 3: "done", 4: "done", 5: "pending", 6: "pending", 7: "pending", 8: "done", 9: "pending", 260: "pending" } : null,
+      home_id: HOME, own_node_id: 1, sdk_version: "7.22.1", firmware_version: "7.22.1", rf_region: 11, is_rebuilding_routes: busy,
+      rebuild_routes_progress: busy ? { 2: "done", 3: "done", 4: "done", 5: "pending", 6: "pending", 7: "pending", 8: "done", 9: "pending", 260: "pending" } : null,
       nodes: wsNodes,
     },
-  };
+  });
   const LABELS = { on: "On", off: "Off", open: "Open", closed: "Closed", locked: "Locked", unlocked: "Unlocked", unavailable: "Unavailable" };
   return {
     language: "en",
@@ -136,7 +137,13 @@ export const mockHass = ({ dark = false, healthy = false, admin = true, rebuildi
     callWS: async (msg) => {
       if (msg.type === "zwave_js/network_status") {
         if (!devices[msg.device_id]) throw { code: "not_found", message: "Device not found" };
-        return JSON.parse(JSON.stringify(NETWORK));
+        return JSON.parse(JSON.stringify(network()));
+      }
+      // Routes rebuild, on the config entry of the controller.
+      if (msg.type === "zwave_js/begin_rebuilding_routes" || msg.type === "zwave_js/stop_rebuilding_routes") {
+        if (msg.entry_id !== "zwave_entry") throw { code: "not_found", message: "Config entry not found" };
+        busy = msg.type === "zwave_js/begin_rebuilding_routes";
+        return busy;
       }
       throw { code: "not_supported", message: `${msg.type} not supported` };
     },

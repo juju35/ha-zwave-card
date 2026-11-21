@@ -15,6 +15,8 @@ export const SHOTS = [
   ...pair("card-healthy", { tag: "zwave-card", config: {}, hass: { healthy: true } }),
   // The popup of a node, at the top of the card.
   ...pair("card-detail", { tag: "zwave-card", config: {}, clicks: ['.tile[data-node="dev_lock"]'] }),
+  // The confirmation of a routes rebuild, at the top of the card.
+  ...pair("card-rebuild", { tag: "zwave-card", config: {}, clicks: ['.btn[data-action="rebuild"]'] }),
   // Without the illustration, issues first.
   ...pair("card-classic", { tag: "zwave-card", config: { illustration: false, sort: "status" } }),
   // The mini card, with issues and healthy, and the same card unfolded by its detail button.

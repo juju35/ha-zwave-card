@@ -35,7 +35,8 @@ The cards are built on top of Home Assistant's [Z-Wave integration](https://www.
 - One 56 px tile per Z-Wave node, two per row: the icon of its main entity, its name, a state line and its tags — the **security class** (**S2 Access**, **S2 Auth**, **S2** in green, **S0** in amber) and **LR** (purple) for a Long Range node — with a status dot. The state line shows the main entity's state with one reading: the power of a plug, the signal (« −67 dBm »), or the battery; a sleeping node says « Asleep · 88% »
 - Healthy tiles stay neutral: only issues are coloured — a low battery in amber (« Battery 17% »), a dead node in red (« Dead · 3 h »); a sleeping node keeps a grey status dot
 - Click a node for its detail, in a popup at the top of the card: node ID, status, manufacturer and product, firmware, protocol, security class, Z-Wave Plus version, signal, battery, last seen, and a button to the device page; it closes with its button, a click anywhere else, Escape, or when the card leaves the page
-- A **Z-Wave JS settings** button (administrators) opening the Z-Wave JS page, where devices are added and routes rebuilt
+- A **Rebuild routes** button (administrators): after a confirmation in a popup at the top of the card, it starts a routes rebuild on the controller (`zwave_js/begin_rebuilding_routes`); while a rebuild runs it becomes **Stop rebuilding** (`zwave_js/stop_rebuilding_routes`), and its progress shows on the right of the status chips
+- A **Z-Wave JS settings** button (administrators) opening the Z-Wave JS page, where devices are added
 - Mini card: the same 90 px banner with the Z-Wave badge, the status of the network (« Healthy », « 2 issues »), the node, asleep and Long Range counts and the issues as chips, and a detail button at the top right that unfolds the full card; a click anywhere outside the card folds it back
 - Night banner with the dark theme of Home Assistant (a light theme keeps the day banner after sunset), or forced with `illustration_theme`; `illustration: false` for a classic header with a round icon
 - Visual editor for both cards; options left at their default are kept out of the YAML
@@ -47,13 +48,13 @@ The cards are built on top of Home Assistant's [Z-Wave integration](https://www.
 
 | Integration | What the cards show |
 |---|---|
-| <img src="https://raw.githubusercontent.com/juju35/ha-zwave-card/main/images/zwave.png" alt="" width="20"> [Z-Wave](https://www.home-assistant.io/integrations/zwave_js/) (Z-Wave JS) | The Z-Wave devices of the device registry and their entities (state, battery, power, signal strength, node status, last seen), and the integration's `zwave_js/network_status` websocket command (administrators): the controller (home ID, SDK, RF region, driver state, routes rebuild) and every node's status, security class and Z-Wave Plus version |
+| <img src="https://raw.githubusercontent.com/juju35/ha-zwave-card/main/images/zwave.png" alt="" width="20"> [Z-Wave](https://www.home-assistant.io/integrations/zwave_js/) (Z-Wave JS) | The Z-Wave devices of the device registry and their entities (state, battery, power, signal strength, node status, last seen), and the integration's `zwave_js/network_status` websocket command (administrators): the controller (home ID, SDK, RF region, driver state, routes rebuild) and every node's status, security class and Z-Wave Plus version; the **Rebuild routes** button calls `zwave_js/begin_rebuilding_routes` and `zwave_js/stop_rebuilding_routes` |
 
 ## Prerequisites
 
 - Home Assistant 2024.8 or later
 - The [Z-Wave integration](https://www.home-assistant.io/integrations/zwave_js/), connected to a Z-Wave JS server (the Z-Wave JS add-on or app, or Z-Wave JS UI), with at least one device
-- The network status (controller details, security classes) and the settings button need an administrator account; for other users the statuses come from the nodes' **Node status** sensors, else from their entities (a dead node's entities are unavailable)
+- The network status (controller details, security classes), the rebuild and the settings buttons need an administrator account; for other users the statuses come from the nodes' **Node status** sensors, else from their entities (a dead node's entities are unavailable)
 
 ## Installation
 
@@ -110,6 +111,7 @@ sort: status
 columns: 2
 battery_threshold: 20
 show_controller: true
+show_rebuild: true
 show_manage: true
 illustration: true
 illustration_theme: auto
@@ -136,6 +138,7 @@ zoom: true
 | `columns` | both | `2` | Node tiles per row (1 to 4); a card narrower than 390 px shows one per row |
 | `battery_threshold` | both | `20` | A battery below this percentage is a low battery (a battery binary sensor that is on is one too) |
 | `show_controller` | both | `true` | The controller tile |
+| `show_rebuild` | both | `true` | The **Rebuild routes** / **Stop rebuilding** button, with its confirmation (shown to administrators only, while the driver is connected) |
 | `show_manage` | both | `true` | The **Z-Wave JS settings** button (shown to administrators only) |
 | `illustration` | both | `true` | The animated banner as header (both cards); `false` for a classic header with a round icon |
 | `illustration_theme` | both | `auto` | `auto` (follows the Home Assistant theme: night with a dark theme, day with a light theme), `day` or `night` |
@@ -180,6 +183,12 @@ Detail of a node, at the top of the card:
 | Light | Dark |
 |---|---|
 | <img src="https://raw.githubusercontent.com/juju35/ha-zwave-card/main/screenshots/card-detail.png" alt="node detail" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-zwave-card/main/screenshots/card-detail-dark.png" alt="node detail, dark theme" width="400"> |
+
+Confirmation of a routes rebuild, at the top of the card:
+
+| Light | Dark |
+|---|---|
+| <img src="https://raw.githubusercontent.com/juju35/ha-zwave-card/main/screenshots/card-rebuild.png" alt="routes rebuild confirmation" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-zwave-card/main/screenshots/card-rebuild-dark.png" alt="routes rebuild confirmation, dark theme" width="400"> |
 
 Classic header (`illustration: false`, here with `sort: status`):
 

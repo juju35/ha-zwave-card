@@ -62,6 +62,8 @@ const ICONS = {
   stick:
     "M8 15C8.55 15 9 15.45 9 16C9 16.55 8.55 17 8 17C7.45 17 7 16.55 7 16C7 15.45 7.45 15 8 15M15.07 4.69L16.5 6.1L15.07 7.5L13.66 6.1L15.07 4.69M17.9 7.5L19.31 8.93L17.9 10.34L16.5 8.93L17.9 7.5M8 13C6.34 13 5 14.34 5 16C5 17.66 6.34 19 8 19C9.66 19 11 17.66 11 16C11 14.34 9.66 13 8 13M9.77 4.33L10.5 5.08L14.29 1.29C14.47 1.11 14.72 1 15 1C15.28 1 15.53 1.11 15.71 1.29L22.78 8.36L22.78 8.37C22.92 8.54 23 8.76 23 9C23 9.3 22.87 9.57 22.66 9.76L22.66 9.76L18.93 13.5L19.67 14.23L12.95 20.95C11.68 22.22 9.93 23 8 23C4.13 23 1 19.87 1 16C1 14.07 1.78 12.32 3.05 11.05L9.77 4.33M20.59 9L15 3.41L11.93 6.5L17.5 12.08L20.59 9Z",
   cog: "M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.67 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z",
+  refresh: "M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z",
+  stop: "M18,18H6V6H18V18Z",
   zwave: ZWAVE,
 };
 
@@ -99,6 +101,17 @@ const STRINGS = {
     protocol: "Protocol",
     region: "Region",
     manage: "Z-Wave JS settings",
+    rebuild: "Rebuild routes",
+    stop_rebuild: "Stop rebuilding",
+    rebuild_title: "Rebuild the network routes?",
+    rebuild_text: "Every node gets new routes to the controller. It can take several minutes; battery devices are updated when they next wake up.",
+    stop_title: "Stop rebuilding the routes?",
+    stop_text: "The routes already rebuilt are kept.",
+    start: "Start",
+    stop: "Stop",
+    cancel: "Cancel",
+    command_failed: "The command failed. Try again.",
+    show_rebuild: "Rebuild routes button",
     no_devices: "No Z-Wave device found. Is the Z-Wave JS integration set up?",
     healthy: "Healthy",
     no_nodes: "No devices",
@@ -169,6 +182,17 @@ const STRINGS = {
     protocol: "Protocole",
     region: "Région",
     manage: "Paramètres Z-Wave JS",
+    rebuild: "Reconstruire les routes",
+    stop_rebuild: "Arrêter la reconstruction",
+    rebuild_title: "Reconstruire les routes du réseau ?",
+    rebuild_text: "Chaque nœud reçoit de nouvelles routes vers le contrôleur. Cela peut prendre plusieurs minutes ; les appareils sur batterie sont mis à jour à leur prochain réveil.",
+    stop_title: "Arrêter la reconstruction des routes ?",
+    stop_text: "Les routes déjà reconstruites sont conservées.",
+    start: "Lancer",
+    stop: "Arrêter",
+    cancel: "Annuler",
+    command_failed: "La commande a échoué. Réessayez.",
+    show_rebuild: "Bouton reconstruire les routes",
     no_devices: "Aucun appareil Z-Wave trouvé. L'intégration Z-Wave JS est-elle configurée ?",
     healthy: "Tout va bien",
     no_nodes: "Aucun appareil",
@@ -239,6 +263,17 @@ const STRINGS = {
     protocol: "Protokoll",
     region: "Region",
     manage: "Z-Wave-JS-Einstellungen",
+    rebuild: "Routen neu aufbauen",
+    stop_rebuild: "Neuaufbau stoppen",
+    rebuild_title: "Netzwerkrouten neu aufbauen?",
+    rebuild_text: "Jeder Knoten erhält neue Routen zum Controller. Das kann mehrere Minuten dauern; batteriebetriebene Geräte werden beim nächsten Aufwachen aktualisiert.",
+    stop_title: "Neuaufbau der Routen stoppen?",
+    stop_text: "Bereits neu aufgebaute Routen bleiben erhalten.",
+    start: "Starten",
+    stop: "Stoppen",
+    cancel: "Abbrechen",
+    command_failed: "Der Befehl ist fehlgeschlagen. Versuche es erneut.",
+    show_rebuild: "Schaltfläche Routen neu aufbauen",
     no_devices: "Kein Z-Wave-Gerät gefunden. Ist die Z-Wave JS-Integration eingerichtet?",
     healthy: "Alles in Ordnung",
     no_nodes: "Keine Geräte",
@@ -309,6 +344,17 @@ const STRINGS = {
     protocol: "Protocolo",
     region: "Región",
     manage: "Ajustes de Z-Wave JS",
+    rebuild: "Reconstruir rutas",
+    stop_rebuild: "Detener la reconstrucción",
+    rebuild_title: "¿Reconstruir las rutas de la red?",
+    rebuild_text: "Cada nodo recibe nuevas rutas hacia el controlador. Puede tardar varios minutos; los dispositivos a batería se actualizan cuando vuelven a despertar.",
+    stop_title: "¿Detener la reconstrucción de rutas?",
+    stop_text: "Las rutas ya reconstruidas se conservan.",
+    start: "Iniciar",
+    stop: "Detener",
+    cancel: "Cancelar",
+    command_failed: "El comando ha fallado. Inténtalo de nuevo.",
+    show_rebuild: "Botón de reconstruir rutas",
     no_devices: "No se encontró ningún dispositivo Z-Wave. ¿Está configurada la integración Z-Wave JS?",
     healthy: "Todo bien",
     no_nodes: "Sin dispositivos",
@@ -379,6 +425,17 @@ const STRINGS = {
     protocol: "Протокол",
     region: "Регион",
     manage: "Подешавања Z-Wave JS",
+    rebuild: "Обнови руте",
+    stop_rebuild: "Заустави обнову",
+    rebuild_title: "Обновити руте мреже?",
+    rebuild_text: "Сваки чвор добија нове руте до контролера. То може трајати неколико минута; уређаји на батерије се ажурирају при следећем буђењу.",
+    stop_title: "Зауставити обнову рута?",
+    stop_text: "Већ обновљене руте се задржавају.",
+    start: "Покрени",
+    stop: "Заустави",
+    cancel: "Откажи",
+    command_failed: "Команда није успела. Покушајте поново.",
+    show_rebuild: "Дугме за обнову рута",
     no_devices: "Није пронађен ниједан Z-Wave уређај. Да ли је Z-Wave JS интеграција подешена?",
     healthy: "Све је у реду",
     no_nodes: "Нема уређаја",
@@ -449,6 +506,17 @@ const STRINGS = {
     protocol: "Protokol",
     region: "Region",
     manage: "Podešavanja Z-Wave JS",
+    rebuild: "Obnovi rute",
+    stop_rebuild: "Zaustavi obnovu",
+    rebuild_title: "Obnoviti rute mreže?",
+    rebuild_text: "Svaki čvor dobija nove rute do kontrolera. To može trajati nekoliko minuta; uređaji na baterije se ažuriraju pri sledećem buđenju.",
+    stop_title: "Zaustaviti obnovu ruta?",
+    stop_text: "Već obnovljene rute se zadržavaju.",
+    start: "Pokreni",
+    stop: "Zaustavi",
+    cancel: "Otkaži",
+    command_failed: "Komanda nije uspela. Pokušajte ponovo.",
+    show_rebuild: "Dugme za obnovu ruta",
     no_devices: "Nije pronađen nijedan Z-Wave uređaj. Da li je Z-Wave JS integracija podešena?",
     healthy: "Sve je u redu",
     no_nodes: "Nema uređaja",
@@ -519,6 +587,17 @@ const STRINGS = {
     protocol: "Protocollo",
     region: "Regione",
     manage: "Impostazioni Z-Wave JS",
+    rebuild: "Ricostruisci percorsi",
+    stop_rebuild: "Interrompi la ricostruzione",
+    rebuild_title: "Ricostruire i percorsi della rete?",
+    rebuild_text: "Ogni nodo riceve nuovi percorsi verso il controller. Può richiedere diversi minuti; i dispositivi a batteria vengono aggiornati al loro prossimo risveglio.",
+    stop_title: "Interrompere la ricostruzione dei percorsi?",
+    stop_text: "I percorsi già ricostruiti vengono mantenuti.",
+    start: "Avvia",
+    stop: "Interrompi",
+    cancel: "Annulla",
+    command_failed: "Il comando non è riuscito. Riprova.",
+    show_rebuild: "Pulsante ricostruisci percorsi",
     no_devices: "Nessun dispositivo Z-Wave trovato. L'integrazione Z-Wave JS è configurata?",
     healthy: "Tutto ok",
     no_nodes: "Nessun dispositivo",
@@ -589,6 +668,17 @@ const STRINGS = {
     protocol: "Protocol",
     region: "Regio",
     manage: "Z-Wave JS-instellingen",
+    rebuild: "Routes opnieuw opbouwen",
+    stop_rebuild: "Opbouwen stoppen",
+    rebuild_title: "Netwerkroutes opnieuw opbouwen?",
+    rebuild_text: "Elk knooppunt krijgt nieuwe routes naar de controller. Dit kan enkele minuten duren; apparaten op batterij worden bijgewerkt wanneer ze weer ontwaken.",
+    stop_title: "Opnieuw opbouwen van routes stoppen?",
+    stop_text: "Routes die al opnieuw zijn opgebouwd blijven behouden.",
+    start: "Starten",
+    stop: "Stoppen",
+    cancel: "Annuleren",
+    command_failed: "De opdracht is mislukt. Probeer het opnieuw.",
+    show_rebuild: "Knop routes opnieuw opbouwen",
     no_devices: "Geen Z-Wave-apparaat gevonden. Is de Z-Wave JS-integratie ingesteld?",
     healthy: "Alles in orde",
     no_nodes: "Geen apparaten",
@@ -659,6 +749,17 @@ const STRINGS = {
     protocol: "Protocolo",
     region: "Região",
     manage: "Definições do Z-Wave JS",
+    rebuild: "Reconstruir rotas",
+    stop_rebuild: "Parar a reconstrução",
+    rebuild_title: "Reconstruir as rotas da rede?",
+    rebuild_text: "Cada nó recebe novas rotas para o controlador. Pode demorar vários minutos; os dispositivos a bateria são atualizados quando voltarem a acordar.",
+    stop_title: "Parar a reconstrução das rotas?",
+    stop_text: "As rotas já reconstruídas são mantidas.",
+    start: "Iniciar",
+    stop: "Parar",
+    cancel: "Cancelar",
+    command_failed: "O comando falhou. Tente novamente.",
+    show_rebuild: "Botão de reconstruir rotas",
     no_devices: "Nenhum dispositivo Z-Wave encontrado. A integração Z-Wave JS está configurada?",
     healthy: "Tudo bem",
     no_nodes: "Sem dispositivos",
@@ -731,6 +832,17 @@ const STRINGS = {
     protocol: "Protokół",
     region: "Region",
     manage: "Ustawienia Z-Wave JS",
+    rebuild: "Odbuduj trasy",
+    stop_rebuild: "Zatrzymaj odbudowę",
+    rebuild_title: "Odbudować trasy sieci?",
+    rebuild_text: "Każdy węzeł otrzymuje nowe trasy do kontrolera. Może to potrwać kilka minut; urządzenia bateryjne zostaną zaktualizowane przy najbliższym wybudzeniu.",
+    stop_title: "Zatrzymać odbudowę tras?",
+    stop_text: "Już odbudowane trasy zostaną zachowane.",
+    start: "Rozpocznij",
+    stop: "Zatrzymaj",
+    cancel: "Anuluj",
+    command_failed: "Polecenie nie powiodło się. Spróbuj ponownie.",
+    show_rebuild: "Przycisk odbudowy tras",
     no_devices: "Nie znaleziono urządzeń Z-Wave. Czy integracja Z-Wave JS jest skonfigurowana?",
     healthy: "Wszystko w porządku",
     no_nodes: "Brak urządzeń",
@@ -802,6 +914,17 @@ const STRINGS = {
     protocol: "Protocol",
     region: "Regiune",
     manage: "Setări Z-Wave JS",
+    rebuild: "Reconstruiește rutele",
+    stop_rebuild: "Oprește reconstruirea",
+    rebuild_title: "Reconstruiești rutele rețelei?",
+    rebuild_text: "Fiecare nod primește rute noi către controler. Poate dura câteva minute; dispozitivele pe baterie sunt actualizate la următoarea trezire.",
+    stop_title: "Oprești reconstruirea rutelor?",
+    stop_text: "Rutele deja reconstruite se păstrează.",
+    start: "Pornește",
+    stop: "Oprește",
+    cancel: "Anulează",
+    command_failed: "Comanda a eșuat. Încearcă din nou.",
+    show_rebuild: "Buton reconstruire rute",
     no_devices: "Niciun dispozitiv Z-Wave găsit. Este configurată integrarea Z-Wave JS?",
     healthy: "Totul e în regulă",
     no_nodes: "Niciun dispozitiv",
@@ -872,6 +995,17 @@ const STRINGS = {
     protocol: "Protokol",
     region: "Region",
     manage: "Z-Wave JS-indstillinger",
+    rebuild: "Genopbyg ruter",
+    stop_rebuild: "Stop genopbygning",
+    rebuild_title: "Genopbyg netværkets ruter?",
+    rebuild_text: "Hver node får nye ruter til controlleren. Det kan tage flere minutter; batteridrevne enheder opdateres, når de vågner næste gang.",
+    stop_title: "Stop genopbygningen af ruter?",
+    stop_text: "Ruter, der allerede er genopbygget, bevares.",
+    start: "Start",
+    stop: "Stop",
+    cancel: "Annuller",
+    command_failed: "Kommandoen mislykkedes. Prøv igen.",
+    show_rebuild: "Knap til genopbygning af ruter",
     no_devices: "Ingen Z-Wave-enhed fundet. Er Z-Wave JS-integrationen sat op?",
     healthy: "Alt i orden",
     no_nodes: "Ingen enheder",
@@ -942,6 +1076,17 @@ const STRINGS = {
     protocol: "Protokoll",
     region: "Region",
     manage: "Z-Wave JS-inställningar",
+    rebuild: "Bygg om rutter",
+    stop_rebuild: "Stoppa ombyggnaden",
+    rebuild_title: "Bygga om nätverkets rutter?",
+    rebuild_text: "Varje nod får nya rutter till styrenheten. Det kan ta flera minuter; batteridrivna enheter uppdateras när de vaknar nästa gång.",
+    stop_title: "Stoppa ombyggnaden av rutter?",
+    stop_text: "Rutter som redan byggts om behålls.",
+    start: "Starta",
+    stop: "Stoppa",
+    cancel: "Avbryt",
+    command_failed: "Kommandot misslyckades. Försök igen.",
+    show_rebuild: "Knapp för att bygga om rutter",
     no_devices: "Ingen Z-Wave-enhet hittades. Är Z-Wave JS-integrationen konfigurerad?",
     healthy: "Allt i ordning",
     no_nodes: "Inga enheter",
@@ -1010,6 +1155,17 @@ const STRINGS = {
     protocol: "Протокол",
     region: "Регион",
     manage: "Настройки на Z-Wave JS",
+    rebuild: "Възстанови маршрутите",
+    stop_rebuild: "Спри възстановяването",
+    rebuild_title: "Да се възстановят ли маршрутите на мрежата?",
+    rebuild_text: "Всеки възел получава нови маршрути до контролера. Това може да отнеме няколко минути; устройствата на батерии се обновяват при следващото им събуждане.",
+    stop_title: "Да се спре ли възстановяването на маршрутите?",
+    stop_text: "Вече възстановените маршрути се запазват.",
+    start: "Старт",
+    stop: "Спри",
+    cancel: "Отказ",
+    command_failed: "Командата не бе изпълнена. Опитайте отново.",
+    show_rebuild: "Бутон за възстановяване на маршрутите",
     no_devices: "Не е намерено Z-Wave устройство. Настроена ли е интеграцията Z-Wave JS?",
     healthy: "Всичко е наред",
     no_nodes: "Няма устройства",
@@ -1082,6 +1238,17 @@ const STRINGS = {
     protocol: "Протокол",
     region: "Регион",
     manage: "Настройки Z-Wave JS",
+    rebuild: "Перестроить маршруты",
+    stop_rebuild: "Остановить перестроение",
+    rebuild_title: "Перестроить маршруты сети?",
+    rebuild_text: "Каждый узел получит новые маршруты к контроллеру. Это может занять несколько минут; устройства на батарейках обновятся при следующем пробуждении.",
+    stop_title: "Остановить перестроение маршрутов?",
+    stop_text: "Уже перестроенные маршруты сохранятся.",
+    start: "Запустить",
+    stop: "Остановить",
+    cancel: "Отмена",
+    command_failed: "Команда не выполнена. Повторите попытку.",
+    show_rebuild: "Кнопка перестроения маршрутов",
     no_devices: "Устройства Z-Wave не найдены. Настроена ли интеграция Z-Wave JS?",
     healthy: "Всё в порядке",
     no_nodes: "Нет устройств",
@@ -1154,6 +1321,17 @@ const STRINGS = {
     protocol: "Протокол",
     region: "Регіон",
     manage: "Налаштування Z-Wave JS",
+    rebuild: "Перебудувати маршрути",
+    stop_rebuild: "Зупинити перебудову",
+    rebuild_title: "Перебудувати маршрути мережі?",
+    rebuild_text: "Кожен вузол отримає нові маршрути до контролера. Це може тривати кілька хвилин; пристрої на батареях оновляться під час наступного пробудження.",
+    stop_title: "Зупинити перебудову маршрутів?",
+    stop_text: "Уже перебудовані маршрути збережуться.",
+    start: "Запустити",
+    stop: "Зупинити",
+    cancel: "Скасувати",
+    command_failed: "Команду не виконано. Спробуйте ще раз.",
+    show_rebuild: "Кнопка перебудови маршрутів",
     no_devices: "Пристроїв Z-Wave не знайдено. Чи налаштовано інтеграцію Z-Wave JS?",
     healthy: "Усе гаразд",
     no_nodes: "Немає пристроїв",
@@ -1224,6 +1402,17 @@ const STRINGS = {
     protocol: "Protokoll",
     region: "Régió",
     manage: "Z-Wave JS beállítások",
+    rebuild: "Útvonalak újraépítése",
+    stop_rebuild: "Újraépítés leállítása",
+    rebuild_title: "Újraépíti a hálózat útvonalait?",
+    rebuild_text: "Minden csomópont új útvonalat kap a vezérlőhöz. Ez több percig is tarthat; az elemes eszközök a következő ébredésükkor frissülnek.",
+    stop_title: "Leállítja az útvonalak újraépítését?",
+    stop_text: "A már újraépített útvonalak megmaradnak.",
+    start: "Indítás",
+    stop: "Leállítás",
+    cancel: "Mégse",
+    command_failed: "A parancs nem sikerült. Próbálja újra.",
+    show_rebuild: "Útvonal-újraépítés gomb",
     no_devices: "Nem található Z-Wave-eszköz. Be van állítva a Z-Wave JS-integráció?",
     healthy: "Minden rendben",
     no_nodes: "Nincs eszköz",
@@ -1296,6 +1485,17 @@ const STRINGS = {
     protocol: "Protokol",
     region: "Región",
     manage: "Nastavenia Z-Wave JS",
+    rebuild: "Obnoviť trasy",
+    stop_rebuild: "Zastaviť obnovu",
+    rebuild_title: "Obnoviť trasy siete?",
+    rebuild_text: "Každý uzol dostane nové trasy k ovládaču. Môže to trvať niekoľko minút; batériové zariadenia sa aktualizujú pri najbližšom prebudení.",
+    stop_title: "Zastaviť obnovu trás?",
+    stop_text: "Už obnovené trasy sa zachovajú.",
+    start: "Spustiť",
+    stop: "Zastaviť",
+    cancel: "Zrušiť",
+    command_failed: "Príkaz zlyhal. Skúste to znova.",
+    show_rebuild: "Tlačidlo obnovy trás",
     no_devices: "Nenašlo sa žiadne zariadenie Z-Wave. Je integrácia Z-Wave JS nastavená?",
     healthy: "Všetko v poriadku",
     no_nodes: "Žiadne zariadenia",
@@ -1368,6 +1568,17 @@ const STRINGS = {
     protocol: "Protokol",
     region: "Region",
     manage: "Nastavení Z-Wave JS",
+    rebuild: "Obnovit trasy",
+    stop_rebuild: "Zastavit obnovu",
+    rebuild_title: "Obnovit trasy sítě?",
+    rebuild_text: "Každý uzel dostane nové trasy k řadiči. Může to trvat několik minut; bateriová zařízení se aktualizují při příštím probuzení.",
+    stop_title: "Zastavit obnovu tras?",
+    stop_text: "Již obnovené trasy zůstanou zachovány.",
+    start: "Spustit",
+    stop: "Zastavit",
+    cancel: "Zrušit",
+    command_failed: "Příkaz se nezdařil. Zkuste to znovu.",
+    show_rebuild: "Tlačítko obnovy tras",
     no_devices: "Nenalezeno žádné zařízení Z-Wave. Je integrace Z-Wave JS nastavena?",
     healthy: "Vše v pořádku",
     no_nodes: "Žádná zařízení",
@@ -1440,6 +1651,17 @@ const STRINGS = {
     protocol: "Protokol",
     region: "Regija",
     manage: "Nastavitve Z-Wave JS",
+    rebuild: "Obnovi poti",
+    stop_rebuild: "Ustavi obnovo",
+    rebuild_title: "Obnovim poti omrežja?",
+    rebuild_text: "Vsako vozlišče dobi nove poti do krmilnika. To lahko traja več minut; naprave na baterije se posodobijo ob naslednjem prebujenju.",
+    stop_title: "Ustavim obnovo poti?",
+    stop_text: "Že obnovljene poti se ohranijo.",
+    start: "Začni",
+    stop: "Ustavi",
+    cancel: "Prekliči",
+    command_failed: "Ukaz ni uspel. Poskusite znova.",
+    show_rebuild: "Gumb za obnovo poti",
     no_devices: "Ni najdenih naprav Z-Wave. Ali je integracija Z-Wave JS nastavljena?",
     healthy: "Vse v redu",
     no_nodes: "Ni naprav",
@@ -1510,6 +1732,17 @@ const STRINGS = {
     protocol: "Protokols",
     region: "Reģions",
     manage: "Z-Wave JS iestatījumi",
+    rebuild: "Atjaunot maršrutus",
+    stop_rebuild: "Apturēt atjaunošanu",
+    rebuild_title: "Atjaunot tīkla maršrutus?",
+    rebuild_text: "Katrs mezgls saņem jaunus maršrutus uz kontrolleri. Tas var ilgt vairākas minūtes; ierīces ar baterijām tiek atjauninātas nākamajā pamošanās reizē.",
+    stop_title: "Apturēt maršrutu atjaunošanu?",
+    stop_text: "Jau atjaunotie maršruti tiek saglabāti.",
+    start: "Sākt",
+    stop: "Apturēt",
+    cancel: "Atcelt",
+    command_failed: "Komanda neizdevās. Mēģiniet vēlreiz.",
+    show_rebuild: "Maršrutu atjaunošanas poga",
     no_devices: "Nav atrasta neviena Z-Wave ierīce. Vai Z-Wave JS integrācija ir iestatīta?",
     healthy: "Viss kārtībā",
     no_nodes: "Nav ierīču",
@@ -1580,6 +1813,17 @@ const STRINGS = {
     protocol: "Πρωτόκολλο",
     region: "Περιοχή",
     manage: "Ρυθμίσεις Z-Wave JS",
+    rebuild: "Ανακατασκευή διαδρομών",
+    stop_rebuild: "Διακοπή ανακατασκευής",
+    rebuild_title: "Ανακατασκευή των διαδρομών του δικτύου;",
+    rebuild_text: "Κάθε κόμβος παίρνει νέες διαδρομές προς τον ελεγκτή. Μπορεί να διαρκέσει αρκετά λεπτά· οι συσκευές μπαταρίας ενημερώνονται στο επόμενο ξύπνημά τους.",
+    stop_title: "Διακοπή της ανακατασκευής διαδρομών;",
+    stop_text: "Οι διαδρομές που έχουν ήδη ανακατασκευαστεί διατηρούνται.",
+    start: "Έναρξη",
+    stop: "Διακοπή",
+    cancel: "Ακύρωση",
+    command_failed: "Η εντολή απέτυχε. Δοκιμάστε ξανά.",
+    show_rebuild: "Κουμπί ανακατασκευής διαδρομών",
     no_devices: "Δεν βρέθηκε συσκευή Z-Wave. Έχει ρυθμιστεί η ενσωμάτωση Z-Wave JS;",
     healthy: "Όλα εντάξει",
     no_nodes: "Καμία συσκευή",
@@ -1952,6 +2196,21 @@ const refreshNetwork = (hass, controllers) => {
   }
 };
 
+// Starts or stops a routes rebuild on a controller's config entry (administrators), then asks its network status
+// again at once; while the answer is on its way, the rebuild shows as started (or stopped).
+const rebuildRoutes = (hass, controller, stop = false) =>
+  Promise.resolve()
+    .then(() => hass.callWS({ type: stop ? "zwave_js/stop_rebuilding_routes" : "zwave_js/begin_rebuilding_routes", entry_id: controller.entry }))
+    .then(() => {
+      const s = store.net.get(controller.id);
+      if (s?.data?.controller) {
+        s.data.controller.is_rebuilding_routes = !stop;
+        if (stop) s.data.controller.rebuild_routes_progress = null;
+      }
+      if (s) s.at = 0;
+      bump();
+    });
+
 // The nodes of every network status, by "<home id>-<node id>", and the controllers' own node ids by home id.
 const networkNodes = () => {
   const nodes = new Map();
@@ -2298,7 +2557,12 @@ const FULL_STYLE = `
   .empty { padding: 4px 2px; font-size: 13px; color: var(--secondary-text-color); }
 
   /* ── Settings button: tinted, never filled ── */
-  .actions { display: flex; justify-content: flex-end; margin-top: 2px; }
+  .actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
+  .btn.quiet { background: none; box-shadow: inset 0 0 0 1px var(--divider-color, rgba(127,127,127,.3)); color: var(--primary-text-color); }
+  .btn.quiet:hover { background: color-mix(in srgb, var(--secondary-text-color) 12%, transparent); }
+  .btn[aria-busy="true"] { opacity: .6; cursor: progress; }
+  .modal .msg { margin: 0; font-size: 13px; line-height: 1.45; color: var(--secondary-text-color); }
+  .modal .err { margin: 0; font-size: 13px; color: var(--zw-alert); }
   .btn { all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; border-radius: 8px; padding: 8px 14px;
          font-size: 13px; font-weight: 500; line-height: 16px; box-sizing: border-box; max-width: 100%;
          background: color-mix(in srgb, var(--zw-accent) 14%, transparent); color: color-mix(in srgb, var(--zw-accent) 70%, var(--primary-text-color, #212121)); }
@@ -2402,6 +2666,9 @@ const ZOOM_STYLE = `
 // ---------------------------------------------------------------------------
 // The full card
 // ---------------------------------------------------------------------------
+
+// The popup key of the rebuild's confirmation (node popups are keyed by device id).
+const REBUILD = "@rebuild";
 
 class ZWaveCard extends HTMLElement {
   constructor() {
@@ -2811,12 +3078,70 @@ class ZWaveCard extends HTMLElement {
     </div>`;
   }
 
-  // The settings button (administrators): the Z-Wave JS page of the first controller, where devices are added and
-  // routes rebuilt.
+  // The first controller an administrator can act on (one with its config entry and a connected driver).
+  _actionable() {
+    if (!isAdmin(this._hass)) return null;
+    return this._controllers.find((x) => x.entry && x.connected) || null;
+  }
+
+  // The buttons (administrators): rebuild the routes (or stop a rebuild in progress), after a confirmation; and the
+  // Z-Wave JS page of the first controller, where devices are added.
   _manage() {
-    const c = this._controllers.find((x) => x.entry);
-    if (this._config.show_manage === false || !isAdmin(this._hass) || !c) return "";
-    return `<div class="actions"><button class="btn" data-nav="/config/zwave_js/dashboard?config_entry=${esc(c.entry)}">${svgIcon(ICONS.cog)}<span>${esc(this._t("manage"))}</span></button></div>`;
+    const c = this._actionable();
+    const settings = this._config.show_manage !== false && isAdmin(this._hass) && this._controllers.find((x) => x.entry);
+    const buttons = [];
+    if (c && this._config.show_rebuild !== false)
+      buttons.push(
+        `<button class="btn" data-action="rebuild">${svgIcon(c.rebuilding ? ICONS.stop : ICONS.refresh)}<span>${esc(this._t(c.rebuilding ? "stop_rebuild" : "rebuild"))}</span></button>`,
+      );
+    if (settings)
+      buttons.push(`<button class="btn" data-nav="/config/zwave_js/dashboard?config_entry=${esc(settings.entry)}">${svgIcon(ICONS.cog)}<span>${esc(this._t("manage"))}</span></button>`);
+    return buttons.length ? `<div class="actions">${buttons.join("")}</div>` : "";
+  }
+
+  // The confirmation of a routes rebuild (or of its stop), in the node popup's place at the top of the card.
+  _rebuildHtml() {
+    const c = this._actionable();
+    if (!c) return "";
+    const stop = c.rebuilding;
+    const busy = this._busy ? ' aria-busy="true"' : "";
+    return `<div class="backdrop" data-action="backdrop">
+      <div class="modal" role="alertdialog" aria-modal="true" aria-labelledby="zw-dlg-title" aria-describedby="zw-dlg-msg">
+        <div class="mhead">
+          <span class="ic lvl-ok">${svgIcon(stop ? ICONS.stop : ICONS.refresh)}</span>
+          <div><h3 id="zw-dlg-title">${esc(this._t(stop ? "stop_title" : "rebuild_title"))}</h3></div>
+          <button class="close" data-action="close" title="${esc(this._t("close"))}" aria-label="${esc(this._t("close"))}">${svgIcon(ICONS.close)}</button>
+        </div>
+        <p class="msg" id="zw-dlg-msg">${esc(this._t(stop ? "stop_text" : "rebuild_text"))}</p>
+        ${this._failed ? `<p class="err" role="alert">${esc(this._t("command_failed"))}</p>` : ""}
+        <div class="actions">
+          <button class="btn quiet" data-action="close">${esc(this._t("cancel"))}</button>
+          <button class="btn" data-action="confirm"${busy}>${svgIcon(stop ? ICONS.stop : ICONS.refresh)}<span>${esc(this._t(stop ? "stop" : "start"))}</span></button>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  // Runs the confirmed command; the popup closes when it is accepted, and says so when it fails.
+  _runRebuild() {
+    const c = this._actionable();
+    if (!c || this._busy) return;
+    this._busy = true;
+    this._failed = false;
+    this._update(this._sig);
+    rebuildRoutes(this._hass, c, c.rebuilding)
+      .then(
+        () => {
+          this._busy = false;
+          this._closeDetail(true);
+          refreshNetwork(this._hass, this._controllers.map((x) => x.device));
+        },
+        () => {
+          this._busy = false;
+          this._failed = true;
+          this._update(this._sig);
+        },
+      );
   }
 
   _noDevices() {
@@ -2850,6 +3175,7 @@ class ZWaveCard extends HTMLElement {
   _detailHtml() {
     const id = this._detail;
     if (!id) return "";
+    if (id === REBUILD) return this._rebuildHtml();
     const i = this._infos.find((x) => x.id === id);
     if (!i) return "";
     const d = i.device;
@@ -2895,9 +3221,11 @@ class ZWaveCard extends HTMLElement {
     if (!this._detail) return;
     const id = this._detail;
     this._detail = null;
+    this._failed = false;
     window.removeEventListener("keydown", this._onKey);
     this._update(this._sig);
-    if (refocus) this.shadowRoot.querySelector?.(`.tile[data-node="${CSS.escape(id)}"]`)?.focus({ preventScroll: true });
+    const back = id === REBUILD ? '.btn[data-action="rebuild"]' : `.tile[data-node="${CSS.escape(id)}"]`;
+    if (refocus) this.shadowRoot.querySelector?.(back)?.focus({ preventScroll: true });
   }
 
   _click(ev) {
@@ -2910,8 +3238,15 @@ class ZWaveCard extends HTMLElement {
         navigate(nav.dataset.nav);
         return;
       }
-      // While the popup is open, its close button and the backdrop close it; a click in it does nothing else.
-      if (action?.dataset.action === "close" || (action?.dataset.action === "backdrop" && path[0] === action)) this._closeDetail(true);
+      // While the popup is open, its close button and the backdrop close it; a click in it does nothing else, but
+      // for the rebuild's confirmation.
+      if (action?.dataset.action === "confirm" && this._detail === REBUILD) this._runRebuild();
+      else if (action?.dataset.action === "close" || (action?.dataset.action === "backdrop" && path[0] === action)) this._closeDetail(true);
+      return;
+    }
+    if (action?.dataset.action === "rebuild") {
+      this._failed = false;
+      this._openDetail(REBUILD, ev.detail === 0);
       return;
     }
     if (nav) {
@@ -3039,7 +3374,7 @@ class ZWaveMiniCard extends ZWaveCard {
 // ---------------------------------------------------------------------------
 
 // Options on by default (left out of the YAML while on), and off by default (left out while off).
-const ON_BY_DEFAULT = ["show_title", "show_subtitle", "show_controller", "show_manage", "illustration", "zoom"];
+const ON_BY_DEFAULT = ["show_title", "show_subtitle", "show_controller", "show_rebuild", "show_manage", "illustration", "zoom"];
 const OFF_BY_DEFAULT = [];
 const DEFAULTS = { sort: "name", columns: 2, battery_threshold: 20, illustration_theme: "auto" };
 const LANGUAGES = [
@@ -3066,7 +3401,7 @@ class ZWaveCardEditor extends HTMLElement {
 
   _schema() {
     const tr = (k) => t(this._hass, this._config, k);
-    const toggles = ["show_title", "show_subtitle", "show_controller", "show_manage", "illustration"];
+    const toggles = ["show_title", "show_subtitle", "show_controller", "show_rebuild", "show_manage", "illustration"];
     if (this.constructor.mini) toggles.push("zoom");
     return [
       { name: "title", selector: { text: {} } },
