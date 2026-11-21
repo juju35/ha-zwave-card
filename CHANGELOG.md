@@ -1,6 +1,10 @@
 # Changelog
 
-## 1.0.1 - 2026-11-21
+## 1.1.0 - 2026-11-21
+
+### Features
+- Tiles in the look of the other ha-* cards (room-overview-card): the icon pastille and the state line in the node's state colour — green when healthy, grey asleep, amber for a low battery, red when dead — and the name in bold; the controller tile too. The background stays neutral.
+- Banner: a Z-Wave JS driver disconnected from its controller now shows in the scene — the controller pulses red, its links turn grey and dashed, no packet travels (on both cards; the scene stays hidden at 300 px and below). A GIF of it, light and dark, in the README.
 
 ### Fixes
 - No more page jumps on state updates: an update of an entity the card does not use changes nothing in it, and an update of a node only patches that tile's text in place. The header's status pill is no longer measured again (its classes removed and set back) after every render: its fit is kept with what it depends on — width, title, label — and redrawn as it was.
