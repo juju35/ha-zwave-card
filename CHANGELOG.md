@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.1 - 2026-11-21
+
+### Fixes
+- No more page jumps on state updates: an update of an entity the card does not use changes nothing in it, and an update of a node only patches that tile's text in place. The header's status pill is no longer measured again (its classes removed and set back) after every render: its fit is kept with what it depends on — width, title, label — and redrawn as it was.
+- Readings (power, signal, battery, the rebuild's progress) use tabular figures, so they keep their width as their digits change.
+- Compact mini card (`illustration: false`): the status pill stays beside a short title, left of the detail button, instead of always going under it (the button's auto margin was counted as width taken).
+- A failed `zwave_js/network_status` answer (integration unloaded, server gone) drops the last one: the node statuses and the « connected » driver no longer stay shown as they were; the statuses come from the nodes' entities meanwhile.
+
+### Maintenance
+- Two unused translations removed (`zwave_plus`, `region`), in every language.
+- README: screenshots of a routes rebuild in progress, of a disconnected driver and of the compact mini card.
+- Tests: a browser test of state updates (no DOM change for other entities, one tile patched in place, a steady height) and of the compact mini card's pill; the card's source now counts in the coverage report.
+
 ## 1.0.0 - 2026-11-21
 
 ### Features
