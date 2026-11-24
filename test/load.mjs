@@ -1,13 +1,13 @@
 // Test loader: evaluates the card source (a plain script, as shipped in dist/) in an isolated context
 // with minimal browser stubs, and returns the requested top-level bindings. The bundle is unchanged.
-import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import vm from "node:vm";
+import { source } from "./source.mjs";
 
-const SRC = new URL("../src/zwave-card.js", import.meta.url);
+const SRC = new URL("../src/index.js", import.meta.url);
 
 export const load = (names) => {
-  const src = readFileSync(SRC, "utf8");
+  const src = source;
   class HTMLElement {
     attachShadow() {
       // Listeners kept by type, so tests can dispatch events to them.

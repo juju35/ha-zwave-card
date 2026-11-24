@@ -1,13 +1,14 @@
-// Bundles src/zwave-card.js into the single Marketplace file dist/zwave-card.js, stamping the version.
+// Bundles the ES modules of src/ (entry src/index.js, assembled by scripts/bundle.mjs) into the single Marketplace file dist/zwave-card.js, stamping the version.
 // Usage: node scripts/build.mjs  (dist/ is not committed: CI and the release workflow build it)
 import { mkdirSync, readFileSync, realpathSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { splitDist } from "./i18n-split.mjs";
+import { bundle } from "./bundle.mjs";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
 const pkg = JSON.parse(readFileSync(`${root}package.json`, "utf8"));
 
-const out = `/*! ha-zwave-card v${pkg.version} — https://github.com/juju35/ha-zwave-card */\n${readFileSync(`${root}src/zwave-card.js`, "utf8").replace("__VERSION__", pkg.version)}`;
+const out = `/*! ha-zwave-card v${pkg.version} — https://github.com/juju35/ha-zwave-card */\n${bundle("src/index.js").replace("__VERSION__", pkg.version)}`;
 
 mkdirSync(`${root}dist`, { recursive: true });
 writeFileSync(`${root}dist/zwave-card.js`, out);
