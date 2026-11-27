@@ -79,4 +79,9 @@ export default {
   lang_auto: "Samodejno",
   show_controller: "Krmilnik",
   show_manage: "Gumb za nastavitve",
+  integration: "Integracija",
+  integration_auto: "Samodejno",
+  integration_zwave_js: "Z-Wave JS",
+  integration_zwave_js_ui: "Z-Wave JS UI (MQTT)",
+  base_topic: "Predpona MQTT (Z-Wave JS UI)",
 };

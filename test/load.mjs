@@ -68,6 +68,8 @@ export const load = (names) => {
     },
     setInterval: () => 0,
     clearInterval() {},
+    setTimeout,
+    clearTimeout,
     Intl,
     Date,
   };

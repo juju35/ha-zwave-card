@@ -6,7 +6,8 @@
  * awake, asleep, dead), its security class and its protocol (Z-Wave or Long Range), its health and its details, the
  * controller it hangs on, under an animated banner. The nodes come from the device registry (devices with a
  * `zwave_js` identifier), the controller and the status of every node from the integration's `zwave_js/network_status`
- * websocket command (administrators), else from the nodes' entities.
+ * websocket command (administrators), else from the nodes' entities. Without the integration, Z-Wave JS UI over MQTT:
+ * the devices of its discovery, and its MQTT API (`getInfo`, `getNodes`) through Home Assistant (zwave-js-ui-mqtt.js).
  */
 
 export const VERSION = "__VERSION__";

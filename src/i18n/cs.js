@@ -79,4 +79,9 @@ export default {
   lang_auto: "Automaticky",
   show_controller: "Řadič",
   show_manage: "Tlačítko nastavení",
+  integration: "Integrace",
+  integration_auto: "Automaticky",
+  integration_zwave_js: "Z-Wave JS",
+  integration_zwave_js_ui: "Z-Wave JS UI (MQTT)",
+  base_topic: "Předpona MQTT (Z-Wave JS UI)",
 };

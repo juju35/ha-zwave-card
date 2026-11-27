@@ -6,7 +6,7 @@ import { lang, t } from "./helpers.js";
 // Options on by default (left out of the YAML while on), and off by default (left out while off).
 export const ON_BY_DEFAULT = ["show_title", "show_subtitle", "show_controller", "show_rebuild", "show_manage", "illustration", "zoom"];
 export const OFF_BY_DEFAULT = [];
-export const DEFAULTS = { sort: "name", columns: 2, battery_threshold: 20, illustration_theme: "auto" };
+export const DEFAULTS = { integration: "auto", base_topic: "zwave", sort: "name", columns: 2, battery_threshold: 20, illustration_theme: "auto" };
 export const LANGUAGES = [
   ["en", "English"], ["fr", "Français"], ["de", "Deutsch"], ["es", "Español"], ["sr", "Српски"], ["sr-Latn", "Srpski (latinica)"],
   ["it", "Italiano"], ["nl", "Nederlands"], ["pt", "Português (Portugal)"], ["pl", "Polski"], ["ro", "Română"], ["da", "Dansk"],
@@ -35,6 +35,17 @@ export class ZWaveCardEditor extends HTMLElement {
     if (this.constructor.mini) toggles.push("zoom");
     return [
       { name: "title", selector: { text: {} } },
+      {
+        type: "grid",
+        name: "",
+        schema: [
+          {
+            name: "integration",
+            selector: { select: { mode: "dropdown", options: ["auto", "zwave_js", "zwave_js_ui"].map((v) => ({ value: v, label: tr(`integration_${v}`) })) } },
+          },
+          { name: "base_topic", selector: { text: {} } },
+        ],
+      },
       {
         type: "grid",
         name: "",

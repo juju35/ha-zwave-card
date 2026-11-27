@@ -37,10 +37,41 @@ export const zwaveId = (device) => {
     const m = /^(\d+)-(\d+)(?:-.*)?$/.exec(String(ident[1]));
     if (m) return { home: Number(m[1]), node: Number(m[2]) };
   }
-  return null;
+  return zuiId(device);
 };
 
-export const isZwaveDevice = (d) => !!d && !d.disabled_by && (d.identifiers || []).some((i) => Array.isArray(i) && i[0] === DOMAIN);
+// The integration a card reads: `integration`, or by itself Z-Wave JS when one of its devices is in the registry,
+// else Z-Wave JS UI when one of its MQTT devices is.
+export const SOURCES = ["auto", "zwave_js", "zwave_js_ui"];
+// Z-Wave JS UI's discovery identifier of a node: `zwavejs2mqtt_<home id in hex>_node<node id>` (Gateway._deviceInfo).
+export const ZUI_UID = /^zwavejs2mqtt_0x([0-9a-f]+)_node(\d+)$/i;
+export const zuiId = (device) => {
+  for (const ident of device?.identifiers || []) {
+    if (!Array.isArray(ident) || ident[0] !== "mqtt") continue;
+    const m = ZUI_UID.exec(String(ident[1]));
+    if (m) return { home: Number.parseInt(m[1], 16), node: Number(m[2]) };
+  }
+  return null;
+};
+export const isZuiDevice = (d) => !!d && !d.disabled_by && zuiId(d) !== null;
+export const isZwaveJsDevice = (d) => !!d && !d.disabled_by && (d.identifiers || []).some((i) => Array.isArray(i) && i[0] === DOMAIN);
+
+export const _sources = new WeakMap();
+export const sourceOf = (hass, config) => {
+  const s = config?.integration;
+  if (s === "zwave_js" || s === "zwave_js_ui") return s;
+  const reg = hass?.devices;
+  if (!reg) return "zwave_js";
+  let found = _sources.get(reg);
+  if (!found) {
+    const all = Object.values(reg);
+    found = all.some(isZwaveJsDevice) ? "zwave_js" : all.some(isZuiDevice) ? "zwave_js_ui" : "zwave_js";
+    _sources.set(reg, found);
+  }
+  return found;
+};
+// A Z-Wave device of either integration (the "no Z-Wave device" check).
+export const isZwaveDevice = (d) => isZwaveJsDevice(d) || isZuiDevice(d);
 
 // Node ids from 256 up are Z-Wave Long Range nodes.
 export const isLongRange = (node) => node !== null && node !== undefined && node >= 256;
@@ -66,7 +97,7 @@ export const entitiesByDevice = (hass) => {
 export const _zwaveDevices = new WeakMap();
 export const zwaveDevices = (hass, config = {}, own = null) => {
   const reg = hass?.devices;
-  const key = JSON.stringify([Array.isArray(config.exclude) ? config.exclude : [], own ? [...own] : null]);
+  const key = JSON.stringify([Array.isArray(config.exclude) ? config.exclude : [], own ? [...own] : null, sourceOf(hass, config)]);
   const hit = reg && _zwaveDevices.get(reg);
   if (hit && hit.key === key) return hit.value;
   const value = scanZwaveDevices(hass, config, own);
@@ -78,8 +109,10 @@ export const scanZwaveDevices = (hass, config, own) => {
   const left = (d) => exclude.has(d.id.toLowerCase()) || exclude.has(String(d.name_by_user || d.name || "").toLowerCase());
   const controllers = [];
   const nodes = [];
+  // The devices of the integration read (sourceOf): Z-Wave JS's, or Z-Wave JS UI's MQTT ones.
+  const ofSource = sourceOf(hass, config) === "zwave_js_ui" ? isZuiDevice : isZwaveJsDevice;
   for (const d of Object.values(hass?.devices || {})) {
-    if (!isZwaveDevice(d)) continue;
+    if (!ofSource(d)) continue;
     const id = zwaveId(d);
     const ownNode = own?.get(String(id?.home)) ?? 1;
     if (id && id.node === ownNode) controllers.push(d);
@@ -186,12 +219,12 @@ export const nodeInfo = (hass, device, { ws = null, threshold = 20 } = {}) => {
     lowBattery,
     level: dead ? "alert" : lowBattery ? "warn" : "ok",
     security: securityOf(ws),
-    longRange: isLongRange(node),
+    longRange: isLongRange(node) || ws?.long_range === true,
     zwavePlus: ws?.zwave_plus_version ?? null,
-    rssi: num(ents.rssi ? states[ents.rssi]?.state : null),
+    rssi: num(ents.rssi ? states[ents.rssi]?.state : null) ?? (typeof ws?.rssi === "number" ? ws.rssi : null),
     power: ents.power && !unavailableState(states[ents.power]) ? states[ents.power] : null,
     since: dead && changed ? Date.parse(changed) : null,
-    lastSeen: Number.isFinite(seen) ? seen : updated ? Date.parse(updated) : null,
+    lastSeen: Number.isFinite(seen) ? seen : typeof ws?.last_active === "number" ? ws.last_active : updated ? Date.parse(updated) : null,
     ws,
   };
 };

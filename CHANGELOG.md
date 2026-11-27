@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.0 - 2026-11-27
+
+### Features
+- Z-Wave JS UI over MQTT, without the Z-Wave integration (`integration: zwave_js_ui`, or found by itself): the nodes from the devices of its MQTT discovery, and for administrators its MQTT API through Home Assistant — the controller (SDK, RF region, driver version, gateway online) and every node's status, security class, Z-Wave Plus version, signal and last activity, with the Rebuild routes button. New `integration` and `base_topic` (MQTT prefix, `zwave` by default) options, in the visual editor too (#11).
+
 ## 1.1.4 - 2026-11-27
 
 ### Fixes

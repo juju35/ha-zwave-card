@@ -3,7 +3,8 @@
 // ---------------------------------------------------------------------------
 import { ICONS } from "./core.js";
 import { esc, fmtLang, navigate, num, plural, svgIcon, t, unavailableState, zwaveLogo } from "./helpers.js";
-import { SECURITY_TAGS, controllerOf, driverVersion, entitiesByDevice, isAdmin, isZwaveDevice, networkNodes, nodeInfo, rebuildRoutes, refreshNetwork, store, summaryOf, zwaveDevices, zwaveId } from "./z-wave-nodes.js";
+import { SECURITY_TAGS, controllerOf, driverVersion, entitiesByDevice, isAdmin, isZwaveDevice, networkNodes, nodeInfo, rebuildRoutes, refreshNetwork, sourceOf, store, summaryOf, zwaveDevices, zwaveId } from "./z-wave-nodes.js";
+import { baseTopic, fetchZui, releaseZui, zuiNetwork, zuiRebuild } from "./zwave-js-ui-mqtt.js";
 import { inDialog, morph, sceneSvg, watchOutside } from "./shadow-dom-patching.js";
 import { BANNER_STYLE, COMMON_STYLE, FULL_STYLE, textWidth } from "./styles.js";
 
@@ -92,6 +93,8 @@ export class ZWaveCard extends HTMLElement {
 
   disconnectedCallback() {
     store.cards.delete(this);
+    if (this._zuiUsed) releaseZui(this._zuiUsed, this);
+    this._zuiUsed = null;
     this._outsideWatch?.off();
     this._fitObserver?.disconnect();
     clearInterval(this._timer);
@@ -137,7 +140,7 @@ export class ZWaveCard extends HTMLElement {
   // websocket data and the minute.
   _signature() {
     const h = this._hass;
-    const { controllers, nodes } = zwaveDevices(h, this._config, networkNodes().own);
+    const { controllers, nodes } = zwaveDevices(h, this._config, this._net().own);
     const byDev = entitiesByDevice(h);
     const ids = [];
     for (const d of [...controllers, ...nodes]) for (const e of byDev.get(d.id) || []) ids.push(e.entity_id);
@@ -158,7 +161,7 @@ export class ZWaveCard extends HTMLElement {
     if (!this._hass || !this._config) return;
     this._sig = sig ?? this._signature();
     this._collect();
-    refreshNetwork(this._hass, this._controllers.map((c) => c.device));
+    this._refresh();
     const html = this._render();
     if (html !== this._html) {
       this._html = html;
@@ -167,11 +170,33 @@ export class ZWaveCard extends HTMLElement {
     this._fitPill();
   }
 
+  // Z-Wave JS UI over MQTT (sourceOf): its MQTT prefix, else null for the zwave_js integration.
+  _zuiTopic() {
+    return sourceOf(this._hass, this._config) === "zwave_js_ui" ? baseTopic(this._config) : null;
+  }
+
+  // The network data of the integration read: zwave_js's network status, or Z-Wave JS UI's MQTT API.
+  _net() {
+    const topic = this._zuiTopic();
+    return topic ? zuiNetwork(topic) : networkNodes();
+  }
+
+  // Asks the network data that is due (administrators): the network status of each zwave_js controller, or the
+  // MQTT subscriptions and the API calls of Z-Wave JS UI (released when the card leaves the page or the source
+  // changes).
+  _refresh() {
+    const topic = this._zuiTopic();
+    if (this._zuiUsed && this._zuiUsed !== topic) releaseZui(this._zuiUsed, this);
+    this._zuiUsed = topic;
+    if (topic) fetchZui(this._hass, topic, this);
+    else refreshNetwork(this._hass, this._controllers.map((c) => c.device));
+  }
+
   // The controllers and the nodes, sorted (by name, or issues first), and their summary.
   _collect() {
     const h = this._hass;
     const c = this._config;
-    const net = networkNodes();
+    const net = this._net();
     const { controllers, nodes } = zwaveDevices(h, c, net.own);
     const threshold = num(c.battery_threshold) ?? 20;
     const infos = nodes.map((d) => {
@@ -183,7 +208,8 @@ export class ZWaveCard extends HTMLElement {
     infos.sort(c.sort === "status" ? (a, b) => rank[a.level] - rank[b.level] || byName(a, b) : byName);
     this._infos = infos;
     this._summary = summaryOf(infos);
-    this._controllers = controllers.map((d) => controllerOf(d, store.net.get(d.id)?.data ?? null));
+    // Z-Wave JS UI: its gateways once its API answered, else the controller devices of its discovery, if any.
+    this._controllers = net.controllers?.length ? net.controllers : controllers.map((d) => controllerOf(d, store.net.get(d.id)?.data ?? null));
   }
 
   // Night banner: forced by illustration_theme, else Home Assistant's dark theme alone (a light theme keeps the day
@@ -457,7 +483,7 @@ export class ZWaveCard extends HTMLElement {
   // The first controller an administrator can act on (one with its config entry and a connected driver).
   _actionable() {
     if (!isAdmin(this._hass)) return null;
-    return this._controllers.find((x) => x.entry && x.connected) || null;
+    return this._controllers.find((x) => (x.entry || x.zui) && x.connected) || null;
   }
 
   // The buttons (administrators): rebuild the routes (or stop a rebuild in progress), after a confirmation; and the
@@ -505,12 +531,12 @@ export class ZWaveCard extends HTMLElement {
     this._busy = true;
     this._failed = false;
     this._update(this._sig);
-    rebuildRoutes(this._hass, c, c.rebuilding)
+    (c.zui ? zuiRebuild(this._hass, c, c.rebuilding) : rebuildRoutes(this._hass, c, c.rebuilding))
       .then(
         () => {
           this._busy = false;
           this._closeDetail(true);
-          refreshNetwork(this._hass, this._controllers.map((x) => x.device));
+          this._refresh();
         },
         () => {
           this._busy = false;
