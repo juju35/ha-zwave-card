@@ -77,4 +77,9 @@ export default {
   lang_auto: "Automatic",
   show_controller: "Controller",
   show_manage: "Settings button",
+  integration: "Integration",
+  integration_auto: "Automatic",
+  integration_zwave_js: "Z-Wave JS",
+  integration_zwave_js_ui: "Z-Wave JS UI (MQTT)",
+  base_topic: "MQTT prefix (Z-Wave JS UI)",
 };

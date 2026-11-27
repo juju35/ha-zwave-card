@@ -5,6 +5,7 @@ import "./i18n/strings.js";
 import "./core.js";
 import "./helpers.js";
 import "./z-wave-nodes.js";
+import "./zwave-js-ui-mqtt.js";
 import "./shadow-dom-patching.js";
 import "./styles.js";
 import "./full-card.js";

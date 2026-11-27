@@ -49,11 +49,12 @@ The cards are built on top of Home Assistant's [Z-Wave integration](https://www.
 | Integration | What the cards show |
 |---|---|
 | <img src="https://raw.githubusercontent.com/juju35/ha-zwave-card/main/images/zwave.png" alt="" width="20"> [Z-Wave](https://www.home-assistant.io/integrations/zwave_js/) (Z-Wave JS) | The Z-Wave devices of the device registry and their entities (state, battery, power, signal strength, node status, last seen), and the integration's `zwave_js/network_status` websocket command (administrators): the controller (home ID, SDK, RF region, driver state, routes rebuild) and every node's status, security class and Z-Wave Plus version; the **Rebuild routes** button calls `zwave_js/begin_rebuilding_routes` and `zwave_js/stop_rebuilding_routes` |
+| <img src="https://raw.githubusercontent.com/juju35/ha-zwave-card/main/images/zwave.png" alt="" width="20"> [Z-Wave JS UI](https://github.com/zwave-js/zwave-js-ui) over [MQTT](https://www.home-assistant.io/integrations/mqtt/) | Without the Z-Wave integration: the devices of Z-Wave JS UI's MQTT discovery (`zwavejs2mqtt_<home id>_node<id>` identifiers) and their entities — a node is dead when its entities are unavailable; and its MQTT API through Home Assistant (administrators: `mqtt/subscribe`, `mqtt.publish`) — `getInfo` and `getNodes` for the controller (SDK, RF region, driver version, gateway online) and every node's status, security class, Z-Wave Plus version, signal and last activity; the **Rebuild routes** button calls `beginRebuildingRoutes` / `stopRebuildingRoutes` |
 
 ## Prerequisites
 
 - Home Assistant 2024.8 or later
-- The [Z-Wave integration](https://www.home-assistant.io/integrations/zwave_js/), connected to a Z-Wave JS server (the Z-Wave JS add-on or app, or Z-Wave JS UI), with at least one device
+- The [Z-Wave integration](https://www.home-assistant.io/integrations/zwave_js/), connected to a Z-Wave JS server (the Z-Wave JS add-on or app, or Z-Wave JS UI), with at least one device — or [Z-Wave JS UI](https://github.com/zwave-js/zwave-js-ui) in MQTT mode, with its Home Assistant discovery on and the [MQTT integration](https://www.home-assistant.io/integrations/mqtt/) set up (the status, security and controller details need an administrator and the MQTT gateway's API, on by default)
 - The network status (controller details, security classes), the rebuild and the settings buttons need an administrator account; for other users the statuses come from the nodes' **Node status** sensors, else from their entities (a dead node's entities are unavailable)
 
 ## Installation
@@ -105,6 +106,8 @@ type: custom:zwave-mini-card
 ```yaml
 type: custom:zwave-card
 title: Z-Wave network
+integration: auto
+base_topic: zwave
 show_title: true
 show_subtitle: true
 sort: status
@@ -132,6 +135,8 @@ zoom: true
 | Option | Card | Default | Description |
 |---|---|---|---|
 | `title` | both | `Z-Wave network` / `Z-Wave` | Card title (the banner's name; the mini card's title) |
+| `integration` | both | `auto` | Where the network comes from: `zwave_js` (the Z-Wave integration), `zwave_js_ui` (Z-Wave JS UI over MQTT, without the Z-Wave integration), or `auto`: the Z-Wave integration when one of its devices is in the registry, else Z-Wave JS UI when one of its MQTT devices is |
+| `base_topic` | both | `zwave` | MQTT prefix of Z-Wave JS UI (**Settings → MQTT → Prefix** in Z-Wave JS UI), for `zwave_js_ui` |
 | `show_title` | both | `true` | Show the title in the header (e.g. `false` under a section heading of your own); the status pill stays |
 | `show_subtitle` | both | `true` | Show the stats line under the title (Z-Wave JS version, nodes, RF region) |
 | `sort` | both | `name` | Order of the node tiles: `name`, or `status` for the issues first (dead, then low battery) |
@@ -245,6 +250,10 @@ For an administrator, the cards ask the integration's `zwave_js/network_status` 
 
 A dead node is an issue (red), with the time since it died; a battery under the threshold too (amber). A sleeping node is healthy: battery devices sleep most of the time and wake up at their wake-up interval.
 
+### Z-Wave JS UI over MQTT
+
+Without the Z-Wave integration (`integration: zwave_js_ui`, or by itself when the registry has Z-Wave JS UI's MQTT devices only), the nodes are the devices of Z-Wave JS UI's Home Assistant discovery: their identifier `zwavejs2mqtt_0x<home id>_node<node id>` gives the network and the node. For an administrator, the cards subscribe through Home Assistant to `<prefix>/_CLIENTS/+/status` (the gateway online) and to the answers of its MQTT API, then publish `getInfo` and `getNodes` on `<prefix>/_CLIENTS/<gateway>/api/<name>/set` when the gateway comes online and every minute: the controller (manufacturer, model, SDK, RF region, driver version) and every node's status, security class, Z-Wave Plus version, signal (RSSI) and last activity. For other users, a node's status comes from its entities (Z-Wave JS UI makes them unavailable when the node is dead). The subscriptions are shared by every card of the page and end a minute after the last one leaves it.
+
 ### Narrow cards
 
 The full card fits down to 8 columns of a sections view (about 208 px on a phone), the mini card down to 6 columns (about 156 px). Under 390 px the node tiles go one per row; under 300 px the banner keeps its sky and ground strip for its texts, without the scene. In a container sized by its content, the cards take a width of 400 px instead of collapsing.
@@ -306,7 +315,7 @@ Issues and pull requests are welcome: bug reports with your card configuration a
 
 ## Credits
 
-Node data from Home Assistant's [Z-Wave integration](https://www.home-assistant.io/integrations/zwave_js/) and [Z-Wave JS](https://github.com/zwave-js/node-zwave-js). Z-Wave and the Z-Wave logo are trademarks of Silicon Labs and the Z-Wave Alliance; this project is not affiliated with either. The devices, vendors and networks of the screenshots are fictional.
+Node data from Home Assistant's [Z-Wave integration](https://www.home-assistant.io/integrations/zwave_js/), [Z-Wave JS](https://github.com/zwave-js/node-zwave-js) and [Z-Wave JS UI](https://github.com/zwave-js/zwave-js-ui). Z-Wave and the Z-Wave logo are trademarks of Silicon Labs and the Z-Wave Alliance; this project is not affiliated with either. The devices, vendors and networks of the screenshots are fictional.
 
 ## License
 

@@ -77,4 +77,9 @@ export default {
   lang_auto: "Αυτόματα",
   show_controller: "Ελεγκτής",
   show_manage: "Κουμπί ρυθμίσεων",
+  integration: "Ενσωμάτωση",
+  integration_auto: "Αυτόματα",
+  integration_zwave_js: "Z-Wave JS",
+  integration_zwave_js_ui: "Z-Wave JS UI (MQTT)",
+  base_topic: "Πρόθεμα MQTT (Z-Wave JS UI)",
 };

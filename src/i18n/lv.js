@@ -77,4 +77,9 @@ export default {
   lang_auto: "Automātiski",
   show_controller: "Kontrolleris",
   show_manage: "Iestatījumu poga",
+  integration: "Integrācija",
+  integration_auto: "Automātiski",
+  integration_zwave_js: "Z-Wave JS",
+  integration_zwave_js_ui: "Z-Wave JS UI (MQTT)",
+  base_topic: "MQTT prefikss (Z-Wave JS UI)",
 };

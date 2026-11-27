@@ -77,4 +77,9 @@ export default {
   lang_auto: "Automatikus",
   show_controller: "Vezérlő",
   show_manage: "Beállítások gomb",
+  integration: "Integráció",
+  integration_auto: "Automatikus",
+  integration_zwave_js: "Z-Wave JS",
+  integration_zwave_js_ui: "Z-Wave JS UI (MQTT)",
+  base_topic: "MQTT előtag (Z-Wave JS UI)",
 };

@@ -79,4 +79,9 @@ export default {
   lang_auto: "Автоматично",
   show_controller: "Контролер",
   show_manage: "Кнопка налаштувань",
+  integration: "Інтеграція",
+  integration_auto: "Автоматично",
+  integration_zwave_js: "Z-Wave JS",
+  integration_zwave_js_ui: "Z-Wave JS UI (MQTT)",
+  base_topic: "Префікс MQTT (Z-Wave JS UI)",
 };
