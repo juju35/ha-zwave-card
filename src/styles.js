@@ -149,7 +149,7 @@ export const FULL_STYLE = `
   /* Under 390 px (a phone, a narrow column) two tiles leave the name a few letters: one node per row. */
   @container (max-width: 389px) { .grid { grid-template-columns: minmax(0, 1fr); } }
   .tile { all: unset; position: relative; box-sizing: border-box; cursor: pointer; min-width: 0; min-height: 56px;
-          display: flex; align-items: center; gap: 10px; padding: 8px 10px 8px 8px; border-radius: 12px; --t: var(--zw-ok);
+          display: flex; align-items: center; gap: 10px; padding: 8px 10px 8px 8px; border-radius: 10px; --t: var(--zw-ok);
           background: var(--secondary-background-color, #f1f1f1); transition: background .2s; }
   .tile.lvl-warn { --t: var(--zw-warn); } .tile.lvl-alert { --t: var(--zw-alert); }
   /* A sleeping node is healthy: its status dot is grey, the rest neutral. */
